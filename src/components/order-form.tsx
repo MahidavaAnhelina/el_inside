@@ -16,8 +16,8 @@ function AttachmentPreview({ file }: { file: File }) {
     return () => URL.revokeObjectURL(url);
   }, [file]);
   // Local object URLs must not pass through the Next.js image optimizer.
-  // eslint-disable-next-line @next/next/no-img-element
   return file.type.startsWith("image/") ? (
+    // eslint-disable-next-line @next/next/no-img-element
     <img ref={image} alt="" width={40} height={40} />
   ) : (
     <span className="file-type">PDF</span>

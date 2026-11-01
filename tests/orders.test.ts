@@ -205,3 +205,10 @@ test("retries retain the key while changed content gets a different key", async 
   assert.equal(calls[0].key, calls[1].key);
   assert.notEqual(calls[0].key, calls[2].key);
 });
+
+test("uses the browser-facing host when Next.js normalizes the internal request URL", async () => {
+  const { send } = sender();
+  const req = request({}, [], "https://public.example.com");
+  req.headers.set("host", "public.example.com");
+  assert.equal((await handleOrder(req, null, send)).status, 503);
+});

@@ -79,8 +79,20 @@ export async function handleOrder(
   config: MailConfig | null,
   send: SendMail,
 ) {
-  if (request.headers.get("origin") !== new URL(request.url).origin)
+  const origin = request.headers.get("origin");
+  // Next.js can normalize the internal request URL to localhost behind a proxy.
+  const host = request.headers.get("host") || new URL(request.url).host;
+  try {
+    const source = new URL(origin || "");
+    if (
+      source.host !== host ||
+      !["http:", "https:"].includes(source.protocol) ||
+      source.origin !== origin
+    )
+      return reply(403, { error: "forbidden" });
+  } catch {
     return reply(403, { error: "forbidden" });
+  }
   try {
     const form = await readForm(request);
     const parsed = orderSchema.safeParse(Object.fromEntries(form));
