@@ -21,8 +21,14 @@ export function SiteHeader({
           <Image src="/assets/logo.svg" width={64} height={72} alt="" preload />
           <BrandName className="brand-name" />
         </a>
-        <nav aria-label="Menu">
-          <a href={`/${locale}/gallery/`}>{t.navWorks}</a>
+        <nav className="site-nav" aria-label="Menu">
+          <a href={`/${locale}/#works`}>{t.navWorks}</a>
+          <a
+            href={`/${locale}/gallery/`}
+            aria-current={page === "gallery/" ? "page" : undefined}
+          >
+            {t.navGallery}
+          </a>
           <a href={`/${locale}/#about`}>{t.navAbout}</a>
           <a href={`/${locale}/#how`}>{t.navHow}</a>
         </nav>
