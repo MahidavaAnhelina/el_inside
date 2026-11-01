@@ -1,7 +1,35 @@
 {
-  "name": "el-inside", "version": "1.0.0", "private": true,
-  "engines": {"node": "24.x"},
-  "scripts": {"dev": "next dev", "build": "next build", "start": "next start", "lint": "eslint .", "typecheck": "next typegen && tsc --noEmit", "test": "tsx --test tests/*.test.ts", "format": "prettier --write .", "format:check": "prettier --check ."},
-  "dependencies": {"next": "16.4.3", "react": "19.3.1", "react-dom": "19.3.1", "resend": "6.37.0", "zod": "^4.3.6"},
-  "devDependencies": {"@types/node": "^24", "@types/react": "^19", "@types/react-dom": "^19", "eslint": "^9", "eslint-config-next": "16.4.3", "prettier": "^3", "tsx": "^4", "typescript": "^5"}
+  "name": "el-inside",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "resend": "6.37.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "prettier": "^3",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
 }
