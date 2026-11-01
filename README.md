@@ -10,6 +10,7 @@
 2. [Подключить Telegram, Turnstile и счётчики](docs/production-launch.md).
 3. [Подключить свой Git и разместить на Vercel](docs/vercel.md).
 4. [Менять тексты, изделия и добавлять страницы](docs/editing.md).
+5. [Настроить SEO и подтвердить сайт в Google Search Console](docs/vercel.md#seo-и-google-search-console).
 
 ## Что работает
 
