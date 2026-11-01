@@ -153,6 +153,27 @@ export function Home({ locale }: { locale: Locale }) {
             </li>
           </ol>
         </section>
+        <section id="faq" className="faq wrap">
+          <h2>{t.faqTitle}</h2>
+          <div>
+            <details>
+              <summary>{t.faq1q}</summary>
+              <p>{t.faq1a}</p>
+            </details>
+            <details>
+              <summary>{t.faq2q}</summary>
+              <p>{t.faq2a}</p>
+            </details>
+            <details>
+              <summary>{t.faq3q}</summary>
+              <p>{t.faq3a}</p>
+            </details>
+            <details>
+              <summary>{t.faq4q}</summary>
+              <p>{t.faq4a}</p>
+            </details>
+          </div>
+        </section>
         <section
           id="order"
           className="order-section"
@@ -180,27 +201,6 @@ export function Home({ locale }: { locale: Locale }) {
               </a>
             </aside>
             <OrderForm t={t} locale={locale} />
-          </div>
-        </section>
-        <section id="faq" className="faq wrap">
-          <h2>{t.faqTitle}</h2>
-          <div>
-            <details>
-              <summary>{t.faq1q}</summary>
-              <p>{t.faq1a}</p>
-            </details>
-            <details>
-              <summary>{t.faq2q}</summary>
-              <p>{t.faq2a}</p>
-            </details>
-            <details>
-              <summary>{t.faq3q}</summary>
-              <p>{t.faq3a}</p>
-            </details>
-            <details>
-              <summary>{t.faq4q}</summary>
-              <p>{t.faq4a}</p>
-            </details>
           </div>
         </section>
       </main>
