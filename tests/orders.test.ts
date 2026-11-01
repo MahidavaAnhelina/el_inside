@@ -97,7 +97,7 @@ for (const [name, values] of Object.entries({
   "email header injection": {
     email: "customer@example.com\r\nBcc:another@example.com",
   },
-  "unknown locale": { locale: "ru" },
+  "unknown locale": { locale: "be" },
   "unsafe reference link": { links: "javascript:alert(1)" },
   "oversized text": { details: "a".repeat(3001) },
   "past date": { date: "2020-01-01" },
@@ -211,4 +211,18 @@ test("uses the browser-facing host when Next.js normalizes the internal request 
   const req = request({}, [], "https://public.example.com");
   req.headers.set("host", "public.example.com");
   assert.equal((await handleOrder(req, null, send)).status, 503);
+});
+
+test("Russian enquiries retain the locale, translated piece and customer details", async () => {
+  const { send, calls } = sender();
+  const response = await handleOrder(
+    request({ locale: "ru", details: "Зелёная лягушка" }),
+    config,
+    send,
+  );
+  assert.equal(response.status, 200);
+  assert.match(calls[0].message.subject ?? "", /новая заявка/);
+  assert.match(calls[0].message.text ?? "", /Language \/ Język: ru/);
+  assert.match(calls[0].message.text ?? "", /Лягушка-путешественница/);
+  assert.match(calls[0].message.text ?? "", /Зелёная лягушка/);
 });

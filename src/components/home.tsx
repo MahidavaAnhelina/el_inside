@@ -115,7 +115,7 @@ export function Home({ locale }: { locale: Locale }) {
             <p className="about-lead">{t.aboutLead}</p>
             <p>{t.aboutText}</p>
             <p>{t.aboutStatus}</p>
-            <span className="signature">Elina</span>
+            <span className="signature">El_Inside</span>
           </div>
         </section>
         <section id="how" className="how wrap" aria-labelledby="how-title">

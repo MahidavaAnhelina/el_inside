@@ -104,7 +104,7 @@ export async function handleOrder(
       from: `El_Inside <${config.from}>`,
       to: [config.to],
       replyTo: order.email,
-      subject: `El_Inside — ${order.locale === "pl" ? "nowe zapytanie" : "new enquiry"} (${order.requestId.slice(0, 8)})`,
+      subject: `El_Inside — ${{ pl: "nowe zapytanie", en: "new enquiry", ru: "новая заявка" }[order.locale]} (${order.requestId.slice(0, 8)})`,
       text: emailText(order),
       attachments,
     };

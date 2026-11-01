@@ -1908,3 +1908,12 @@ textarea {
     gap: 4px;
   }
 }
+
+html[lang="ru"] .hero h1 {
+  font-size: clamp(32px, 4.2vw, 56px);
+}
+@media (max-width: 540px) {
+  html[lang="ru"] .hero h1 {
+    font-size: clamp(31px, 8.7vw, 42px);
+  }
+}

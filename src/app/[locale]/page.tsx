@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Home } from "@/components/home";
-import { dictionaries, isLocale, locales } from "@/lib/i18n";
+import { dictionaries, isLocale, locales, openGraphLocales } from "@/lib/i18n";
 import { siteUrl } from "@/lib/site";
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -20,15 +20,20 @@ export async function generateMetadata({
     description: t.pageDescription,
     alternates: {
       canonical: `/${locale}/`,
-      languages: { pl: "/pl/", en: "/en/", "x-default": "/pl/" },
+      languages: {
+        ...Object.fromEntries(locales.map((value) => [value, `/${value}/`])),
+        "x-default": "/pl/",
+      },
     },
     openGraph: {
       title: t.pageTitle,
       description: t.pageDescription,
       url: `/${locale}/`,
       siteName: "El_Inside",
-      locale: locale === "pl" ? "pl_PL" : "en_GB",
-      alternateLocale: locale === "pl" ? "en_GB" : "pl_PL",
+      locale: openGraphLocales[locale],
+      alternateLocale: locales
+        .filter((value) => value !== locale)
+        .map((value) => openGraphLocales[value]),
       type: "website",
       images: [
         {

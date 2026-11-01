@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { locales } from "./i18n";
 import { FILE_TYPES, MAX_FILES, MAX_FILE_BYTES } from "./order-limits";
 
 function todayInPoland() {
@@ -34,7 +35,7 @@ const links = z
   );
 export const orderSchema = z
   .object({
-    locale: z.enum(["pl", "en"]),
+    locale: z.enum(locales),
     kind: z.enum(["catalog", "custom"]),
     product: z.enum(["", "frog", "body", "sea", "giraffe"]),
     version: z.enum(["same", "changes"]),
