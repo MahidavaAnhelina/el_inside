@@ -1,0 +1,462 @@
+{
+  "source": "Owner-provided Фото-видео folder",
+  "originals": [
+    {
+      "source": "IMG_2809.jpg",
+      "target": "gallery/frog-1.webp"
+    },
+    {
+      "source": "IMG_2842.jpg",
+      "target": "gallery/frog-2.webp"
+    },
+    {
+      "source": "IMG_2823.jpg",
+      "target": "gallery/frog-3.webp"
+    },
+    {
+      "source": "IMG_2785.jpg",
+      "target": "gallery/frog-4.webp"
+    },
+    {
+      "source": "IMG_2788.jpg",
+      "target": "gallery/frog-5.webp"
+    },
+    {
+      "source": "IMG_2981.jpg",
+      "target": "gallery/body-1.webp"
+    },
+    {
+      "source": "IMG_2983.jpg",
+      "target": "gallery/body-2.webp"
+    },
+    {
+      "source": "IMG_2997.jpg",
+      "target": "gallery/body-3.webp"
+    },
+    {
+      "source": "IMG_2986.jpg",
+      "target": "gallery/body-4.webp"
+    },
+    {
+      "source": "IMG_3006.jpg",
+      "target": "gallery/body-5.webp"
+    },
+    {
+      "source": "IMG_3013.jpg",
+      "target": "gallery/body-6.webp"
+    },
+    {
+      "source": "IMG_3028.jpg",
+      "target": "gallery/body-7.webp"
+    },
+    {
+      "source": "IMG_3054.jpg",
+      "target": "gallery/body-8.webp"
+    },
+    {
+      "source": "IMG_3098.jpg",
+      "target": "gallery/body-9.webp"
+    },
+    {
+      "source": "IMG_3117.jpg",
+      "target": "gallery/body-10.webp"
+    },
+    {
+      "source": "IMG_0082.jpg",
+      "target": "gallery/fox-1.webp"
+    },
+    {
+      "source": "IMG_0201.jpg",
+      "target": "gallery/fox-2.webp"
+    },
+    {
+      "source": "DJI_20260724_141435_047.jpg",
+      "target": "gallery/pastelBag-1.webp"
+    },
+    {
+      "source": "DJI_20260724_141447_623.jpg",
+      "target": "gallery/pastelBag-2.webp"
+    },
+    {
+      "source": "IMG_4793.jpg",
+      "target": "gallery/pastelBag-3.webp"
+    },
+    {
+      "source": "DJI_20260721_132958_853.jpg",
+      "target": "gallery/pastelBag-4.webp"
+    },
+    {
+      "source": "DJI_20260721_133002_973.jpg",
+      "target": "gallery/pastelBag-5.webp"
+    },
+    {
+      "source": "IMG_4239.jpg",
+      "target": "gallery/pinkCardigan-1.webp"
+    },
+    {
+      "source": "IMG_4241.jpg",
+      "target": "gallery/pinkCardigan-2.webp"
+    },
+    {
+      "source": "IMG_4243.jpg",
+      "target": "gallery/pinkCardigan-3.webp"
+    },
+    {
+      "source": "IMG_4249.jpg",
+      "target": "gallery/pinkCardigan-4.webp"
+    },
+    {
+      "source": "IMG_4280.jpg",
+      "target": "gallery/pinkCardigan-5.webp"
+    },
+    {
+      "source": "DJI_20260707_134240_937.jpg",
+      "target": "gallery/pinkCardigan-6.webp"
+    },
+    {
+      "source": "DJI_20260707_134650_841.jpg",
+      "target": "gallery/pinkCardigan-7.webp"
+    },
+    {
+      "source": "IMG_0216.jpg",
+      "target": "gallery/forestFriends-1.webp"
+    },
+    {
+      "source": "IMG_0218.jpg",
+      "target": "gallery/forestFriends-2.webp"
+    },
+    {
+      "source": "IMG_0101.jpg",
+      "target": "gallery/forestFriends-3.webp"
+    },
+    {
+      "source": "IMG_0155.jpg",
+      "target": "gallery/forestFriends-4.webp"
+    },
+    {
+      "source": "IMG_0160.jpg",
+      "target": "gallery/forestFriends-5.webp"
+    },
+    {
+      "source": "IMG_0161.jpg",
+      "target": "gallery/forestFriends-6.webp"
+    },
+    {
+      "source": "IMG_0162.jpg",
+      "target": "gallery/forestFriends-7.webp"
+    },
+    {
+      "source": "IMG_0168.jpg",
+      "target": "gallery/forestFriends-8.webp"
+    },
+    {
+      "source": "IMG_0170.jpg",
+      "target": "gallery/forestFriends-9.webp"
+    },
+    {
+      "source": "IMG_0173.jpg",
+      "target": "gallery/forestFriends-10.webp"
+    },
+    {
+      "source": "IMG_0176.jpg",
+      "target": "gallery/forestFriends-11.webp"
+    },
+    {
+      "source": "IMG_0180.jpg",
+      "target": "gallery/forestFriends-12.webp"
+    },
+    {
+      "source": "IMG_0191.jpg",
+      "target": "gallery/forestFriends-13.webp"
+    },
+    {
+      "source": "IMG_0212.jpg",
+      "target": "gallery/forestFriends-14.webp"
+    },
+    {
+      "source": "IMG_0312.jpg",
+      "target": "gallery/cherries-1.webp"
+    },
+    {
+      "source": "IMG_0313.jpg",
+      "target": "gallery/cherries-2.webp"
+    },
+    {
+      "source": "IMG_0255.jpg",
+      "target": "gallery/cherries-3.webp"
+    },
+    {
+      "source": "IMG_0259.jpg",
+      "target": "gallery/cherries-4.webp"
+    },
+    {
+      "source": "IMG_0276.jpg",
+      "target": "gallery/cherries-5.webp"
+    },
+    {
+      "source": "IMG_0375.jpg",
+      "target": "gallery/forestHanging-1.webp"
+    },
+    {
+      "source": "IMG_0372.jpg",
+      "target": "gallery/forestHanging-2.webp"
+    },
+    {
+      "source": "IMG_0379.jpg",
+      "target": "gallery/forestHanging-3.webp"
+    },
+    {
+      "source": "IMG_0385.jpg",
+      "target": "gallery/forestHanging-4.webp"
+    },
+    {
+      "source": "IMG_0396.jpg",
+      "target": "gallery/forestHanging-5.webp"
+    },
+    {
+      "source": "IMG_0421.jpg",
+      "target": "gallery/forestHanging-6.webp"
+    },
+    {
+      "source": "IMG_0429.jpg",
+      "target": "gallery/forestHanging-7.webp"
+    },
+    {
+      "source": "IMG_0430.jpg",
+      "target": "gallery/forestHanging-8.webp"
+    },
+    {
+      "source": "IMG_0478.jpg",
+      "target": "gallery/forestHanging-9.webp"
+    },
+    {
+      "source": "IMG_3222.jpg",
+      "target": "gallery/sea-1.webp"
+    },
+    {
+      "source": "IMG_3220.jpg",
+      "target": "gallery/sea-2.webp"
+    },
+    {
+      "source": "IMG_3226.jpg",
+      "target": "gallery/sea-3.webp"
+    },
+    {
+      "source": "IMG_3256.jpg",
+      "target": "gallery/sea-4.webp"
+    },
+    {
+      "source": "IMG_3263.jpg",
+      "target": "gallery/sea-5.webp"
+    },
+    {
+      "source": "IMG_3322.jpg",
+      "target": "gallery/flowerMonster-1.webp"
+    },
+    {
+      "source": "IMG_3352.jpg",
+      "target": "gallery/elephant-1.webp"
+    },
+    {
+      "source": "IMG_3348.jpg",
+      "target": "gallery/elephant-2.webp"
+    },
+    {
+      "source": "IMG_3353.jpg",
+      "target": "gallery/elephant-3.webp"
+    },
+    {
+      "source": "IMG_3580.jpg",
+      "target": "gallery/creamBabyCardigan-1.webp"
+    },
+    {
+      "source": "IMG_3600.jpg",
+      "target": "gallery/creamBabyCardigan-2.webp"
+    },
+    {
+      "source": "IMG_4207.jpg",
+      "target": "gallery/cocktail-1.webp"
+    },
+    {
+      "source": "IMG_4213.jpg",
+      "target": "gallery/cocktail-2.webp"
+    },
+    {
+      "source": "IMG_5003.jpg",
+      "target": "gallery/patchBag-1.webp"
+    },
+    {
+      "source": "IMG_4985.jpg",
+      "target": "gallery/patchBag-2.webp"
+    },
+    {
+      "source": "IMG_4988.jpg",
+      "target": "gallery/patchBag-3.webp"
+    },
+    {
+      "source": "IMG_5010.jpg",
+      "target": "gallery/patchBag-4.webp"
+    },
+    {
+      "source": "IMG_5017.jpg",
+      "target": "gallery/patchBag-5.webp"
+    },
+    {
+      "source": "IMG_5086.jpg",
+      "target": "gallery/gooseCardigan-1.webp"
+    },
+    {
+      "source": "IMG_5804.jpg",
+      "target": "gallery/duck-1.webp"
+    },
+    {
+      "source": "IMG_5526.jpg",
+      "target": "gallery/duck-2.webp"
+    },
+    {
+      "source": "IMG_5528.jpg",
+      "target": "gallery/duck-3.webp"
+    },
+    {
+      "source": "IMG_5520.jpg",
+      "target": "gallery/duck-4.webp"
+    },
+    {
+      "source": "IMG_5521.jpg",
+      "target": "gallery/duck-5.webp"
+    },
+    {
+      "source": "IMG_5522.jpg",
+      "target": "gallery/duck-6.webp"
+    },
+    {
+      "source": "IMG_6629.jpg",
+      "target": "gallery/greenCardigan-1.webp"
+    },
+    {
+      "source": "IMG_6638.jpg",
+      "target": "gallery/greenCardigan-2.webp"
+    },
+    {
+      "source": "IMG_6569.jpg",
+      "target": "gallery/greenCardigan-3.webp"
+    },
+    {
+      "source": "IMG_6650.jpg",
+      "target": "gallery/greenCardigan-4.webp"
+    },
+    {
+      "source": "IMG_6654.jpg",
+      "target": "gallery/greenCardigan-5.webp"
+    },
+    {
+      "source": "IMG_6591.jpg",
+      "target": "gallery/creamCardigan-1.webp"
+    },
+    {
+      "source": "IMG_6589.jpg",
+      "target": "gallery/creamCardigan-2.webp"
+    },
+    {
+      "source": "IMG_6590.jpg",
+      "target": "gallery/creamCardigan-3.webp"
+    },
+    {
+      "source": "IMG_6602.jpg",
+      "target": "gallery/creamCardigan-4.webp"
+    },
+    {
+      "source": "IMG_6697.jpg",
+      "target": "gallery/lilacCardigan-1.webp"
+    },
+    {
+      "source": "IMG_6693.jpg",
+      "target": "gallery/lilacCardigan-2.webp"
+    },
+    {
+      "source": "IMG_6694.jpg",
+      "target": "gallery/lilacCardigan-3.webp"
+    },
+    {
+      "source": "IMG_6698.jpg",
+      "target": "gallery/lilacCardigan-4.webp"
+    },
+    {
+      "source": "IMG_6699.jpg",
+      "target": "gallery/lilacCardigan-5.webp"
+    },
+    {
+      "source": "IMG_9477.jpg",
+      "target": "gallery/reindeer-1.webp"
+    },
+    {
+      "source": "IMG_9625.jpg",
+      "target": "gallery/bearDress-1.webp"
+    },
+    {
+      "source": "IMG_9847.jpg",
+      "target": "gallery/bearSuit-1.webp"
+    },
+    {
+      "source": "IMG_9848.jpg",
+      "target": "gallery/bearSuit-2.webp"
+    },
+    {
+      "source": "IMG_9906.jpg",
+      "target": "gallery/giraffe-1.webp"
+    },
+    {
+      "source": "IMG_9880.jpg",
+      "target": "gallery/giraffe-2.webp"
+    },
+    {
+      "source": "IMG_9854.jpg",
+      "target": "gallery/giraffe-3.webp"
+    },
+    {
+      "source": "IMG_9859.jpg",
+      "target": "gallery/giraffe-4.webp"
+    },
+    {
+      "source": "IMG_9896.jpg",
+      "target": "gallery/giraffe-5.webp"
+    },
+    {
+      "source": "IMG_9898.jpg",
+      "target": "gallery/giraffe-6.webp"
+    },
+    {
+      "source": "IMG_9899.jpg",
+      "target": "gallery/giraffe-7.webp"
+    },
+    {
+      "source": "IMG_9901.jpg",
+      "target": "gallery/giraffe-8.webp"
+    },
+    {
+      "source": "IMG_9905.jpg",
+      "target": "gallery/giraffe-9.webp"
+    },
+    {
+      "source": "IMG_9909.jpg",
+      "target": "gallery/giraffe-10.webp"
+    },
+    {
+      "source": "IMG_9910.jpg",
+      "target": "gallery/giraffe-11.webp"
+    },
+    {
+      "source": "IMG_9920.jpg",
+      "target": "gallery/giraffe-12.webp"
+    },
+    {
+      "source": "IMG_9926.jpg",
+      "target": "gallery/giraffe-13.webp"
+    },
+    {
+      "source": "IMG_9932.jpg",
+      "target": "gallery/giraffe-14.webp"
+    }
+  ],
+  "processing": "JPEG/HEIC converted to WebP; maximum 1600px; 640px thumbnails; metadata removed. Videos are not included."
+}

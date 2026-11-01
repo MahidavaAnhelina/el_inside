@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isProductId } from "./products";
 import { locales } from "./i18n";
 
 export function todayInPoland() {
@@ -36,7 +37,12 @@ export const orderSchema = z
   .object({
     locale: z.enum(locales),
     kind: z.enum(["catalog", "custom"]),
-    product: z.enum(["", "frog", "body", "sea", "giraffe"]),
+    product: z.union([
+      z.literal(""),
+      z.custom<import("./products").ProductId>(
+        (value) => typeof value === "string" && isProductId(value),
+      ),
+    ]),
     version: z.enum(["same", "changes"]),
     name: z
       .string()
