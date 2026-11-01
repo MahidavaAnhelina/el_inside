@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { dictionaries, locales, type Locale } from "@/lib/i18n";
-export function LanguageSwitcher({ locale }: { locale: Locale }) {
+export function LanguageSwitcher({
+  locale,
+  page = "",
+}: {
+  locale: Locale;
+  page?: "" | "gallery/";
+}) {
   return (
     <nav className="language" aria-label={dictionaries[locale].languageLabel}>
       {locales.map((value) => (
         <Link
           key={value}
-          href={`/${value}/`}
+          href={`/${value}/${page}`}
           hrefLang={value}
           lang={value}
           aria-current={value === locale ? "page" : undefined}

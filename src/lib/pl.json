@@ -22,7 +22,7 @@
   "ownIdea": "Mam własny pomysł",
   "filterAll": "Wszystkie",
   "filterToys": "Zabawki",
-  "filterClothes": "Ubranka",
+  "filterClothes": "Ubrania",
   "askSimilar": "Chcę coś podobnego",
   "crochet": "Szydełko · amigurumi",
   "frog": "Żabka podróżniczka",
@@ -31,7 +31,7 @@
   "knitting": "Na drutach · ubranka",
   "body": "Body z kołnierzykiem",
   "bodyDesc": "Delikatne oczka i kwiatowe detale.",
-  "seaAlt": "Szydełkowa meduza w pastelowych kolorach",
+  "seaAlt": "Szydełkowe meduzy i morskie zwierzęta na drewnianym stojaku",
   "sea": "Mały podwodny świat",
   "seaDesc": "Morskie stworzenia w miękkim wydaniu.",
   "giraffeAlt": "Ręcznie wykonana szydełkowa żyrafa",
@@ -199,5 +199,7 @@
   "bearDressDesc": "Miś w sukience.",
   "bearSuit": "Miś w niebieskim komplecie",
   "bearSuitAlt": "Miś w niebieskim komplecie — praca El_Inside",
-  "bearSuitDesc": "Miś w niebieskim komplecie."
+  "bearSuitDesc": "Miś w niebieskim komplecie.",
+  "galleryCrochet": "Szydełkiem",
+  "galleryKnitting": "Na drutach"
 }

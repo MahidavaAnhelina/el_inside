@@ -18,7 +18,7 @@ const production = {
 
 test("production locale canonicals and reciprocal alternates agree with the sitemap", () => {
   const sitemap = siteSitemap(production);
-  assert.equal(sitemap.length, 3);
+  assert.equal(sitemap.length, 6);
   const titles = new Set();
   for (const locale of locales) {
     const metadata = pageMetadata(locale, production);
@@ -99,4 +99,22 @@ test("verification is optional and schema describes only known studio and page f
   const hostile = { name: "</script><script>alert(1)</script>" };
   assert.ok(!serializeJsonLd(hostile).includes("<"));
   assert.deepEqual(JSON.parse(serializeJsonLd(hostile)), hostile);
+});
+
+test("gallery canonicals and alternates point to gallery pages in each locale", () => {
+  for (const locale of locales) {
+    const metadata = pageMetadata(locale, production, "gallery/");
+    const url = `${production.SITE_URL}/${locale}/gallery/`;
+    assert.equal(metadata.alternates?.canonical, url);
+    assert.deepEqual(
+      metadata.alternates?.languages,
+      languageUrls(production, "gallery/"),
+    );
+    assert.deepEqual(
+      siteSitemap(production).find((entry) => entry.url === url)?.alternates
+        ?.languages,
+      metadata.alternates?.languages,
+    );
+    assert.notEqual(metadata.title, pageMetadata(locale, production).title);
+  }
 });

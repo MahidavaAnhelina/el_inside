@@ -90,7 +90,7 @@
   "clothesAlt": "Hand-knitted clothes with an embroidered collar",
   "frogAlt": "A crocheted frog holding a camera",
   "bodyAlt": "A mint-coloured bodysuit with a decorative collar",
-  "seaAlt": "A crocheted jellyfish in pastel colours",
+  "seaAlt": "Crochet jellyfish and sea creatures on a wooden stand",
   "giraffeAlt": "A handmade crocheted giraffe",
   "detailAlt": "A close-up of a collar with floral embroidery",
   "details": "Your notes",
@@ -199,5 +199,7 @@
   "bearDressDesc": "Bear in a dress.",
   "bearSuit": "Bear in a blue outfit",
   "bearSuitAlt": "Bear in a blue outfit — a piece by El_Inside",
-  "bearSuitDesc": "Bear in a blue outfit."
+  "bearSuitDesc": "Bear in a blue outfit.",
+  "galleryCrochet": "Crochet",
+  "galleryKnitting": "Knitting"
 }

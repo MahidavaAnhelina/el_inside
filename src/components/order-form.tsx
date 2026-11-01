@@ -331,7 +331,8 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
               {selected && (
                 <div className="selected-product">
                   <Image
-                    src={`/assets/${selected.image}`}
+                    unoptimized
+                    src={`/assets/${selected.image.replace(".webp", "-thumb.webp")}`}
                     alt=""
                     width={48}
                     height={60}

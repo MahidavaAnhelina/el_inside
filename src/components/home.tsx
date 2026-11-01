@@ -5,7 +5,9 @@ import { dictionaries } from "@/lib/i18n";
 import { WorkshopProvider } from "./workshop-provider";
 import { Catalog } from "./catalog";
 import { OrderForm } from "./order-form";
-import { LanguageSwitcher } from "./language-switcher";
+import { SiteHeader } from "./site-header";
+import { SiteFooter } from "./site-footer";
+import { IconDefs } from "./icon-defs";
 
 export function Home({ locale }: { locale: Locale }) {
   const t = dictionaries[locale];
@@ -15,34 +17,7 @@ export function Home({ locale }: { locale: Locale }) {
         {t.skip}
       </a>
 
-      <header className="site-header">
-        <div className="header wrap">
-          <a className="brand brand-logo" href="#main" aria-label="El_Inside">
-            <Image
-              src="/assets/logo.svg"
-              width={64}
-              height={72}
-              alt=""
-              preload
-            />
-            <BrandName className="brand-name" />
-          </a>
-          <nav aria-label="Menu">
-            <a href="#works">{t.navWorks}</a>
-            <a href="#about">{t.navAbout}</a>
-            <a href="#how">{t.navHow}</a>
-          </nav>
-          <div className="header-actions">
-            <LanguageSwitcher locale={locale} />
-            <a className="header-cta" href="#order">
-              <span>{t.navOrder}</span>
-              <svg aria-hidden="true">
-                <use href="#arrow"></use>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </header>
+      <SiteHeader locale={locale} />
       <main id="main">
         <section className="hero wrap" aria-labelledby="hero-title">
           <div className="hero-copy">
@@ -105,7 +80,7 @@ export function Home({ locale }: { locale: Locale }) {
           </svg>
           <span>{t.value3}</span>
         </div>
-        <Catalog t={t} />
+        <Catalog t={t} locale={locale} />
         <section
           id="about"
           className="about wrap"
@@ -204,64 +179,8 @@ export function Home({ locale }: { locale: Locale }) {
           </div>
         </section>
       </main>
-      <footer className="footer wrap">
-        <div>
-          <a className="brand brand-logo" href="#main" aria-label="El_Inside">
-            <Image
-              src="/assets/logo.svg"
-              width={64}
-              height={72}
-              alt=""
-              loading="lazy"
-            />
-            <BrandName className="brand-name" />
-          </a>
-          <p>{t.footerText}</p>
-        </div>
-        <a
-          href="https://www.pinterest.com/malashechka15/knittingcrocheting/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-link"
-        >
-          <span>{t.pinterest}</span>
-          <svg aria-hidden="true">
-            <use href="#arrow"></use>
-          </svg>
-        </a>
-        <small>
-          <BrandText>{t.footerDemo}</BrandText>
-        </small>
-      </footer>
-      <svg
-        className="svg-defs"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <defs>
-          <symbol id="arrow" viewBox="0 0 24 24">
-            <path d="M4 12h15m-6-6 6 6-6 6"></path>
-          </symbol>
-          <symbol id="heart" viewBox="0 0 24 24">
-            <path d="M20 5c-3-3-7-1-8 2C11 4 7 2 4 5c-5 5 3 11 8 15 5-4 13-10 8-15Z"></path>
-          </symbol>
-          <symbol id="upload" viewBox="0 0 24 24">
-            <path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"></path>
-          </symbol>
-          <symbol id="info" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M12 11v6m0-10v1"></path>
-          </symbol>
-          <symbol id="check" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="m7 12 3 3 7-7"></path>
-          </symbol>
-          <symbol id="thread" viewBox="0 0 48 48">
-            <circle cx="24" cy="23" r="16"></circle>
-            <path d="M9 17c10 0 21 7 29 16M12 11c10 1 22 9 28 17M8 23c9 1 18 7 25 15M27 7C17 15 15 25 18 38M34 10C25 18 23 24 24 34M39 34c10 5 5 12-1 10"></path>
-          </symbol>
-        </defs>
-      </svg>
+      <SiteFooter locale={locale} />
+      <IconDefs />
     </WorkshopProvider>
   );
 }

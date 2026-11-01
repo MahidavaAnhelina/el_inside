@@ -1,15 +1,18 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import type { Dictionary } from "@/lib/i18n";
-import { products } from "@/lib/products";
+import type { Dictionary, Locale } from "@/lib/i18n";
+import { products, featuredProductIds } from "@/lib/products";
 import { useWorkshop } from "./workshop-provider";
 import { Icon } from "./icon";
-export function Catalog({ t }: { t: Dictionary }) {
+export function Catalog({ t, locale }: { t: Dictionary; locale: Locale }) {
   const [filter, setFilter] = useState("all");
   const { select } = useWorkshop();
   const visible = products.filter(
-    (product) => filter === "all" || product.category === filter,
+    (product) =>
+      featuredProductIds.includes(product.id) &&
+      (filter === "all" || product.category === filter),
   );
   return (
     <section id="works" className="works wrap" aria-labelledby="works-title">
@@ -59,7 +62,8 @@ export function Catalog({ t }: { t: Dictionary }) {
               onClick={() => select({ kind: "catalog", product: product.id })}
             >
               <Image
-                src={`/assets/${product.image}`}
+                unoptimized
+                src={`/assets/${product.image.replace(".webp", "-thumb.webp")}`}
                 alt={t[product.alt]}
                 width={474}
                 height={842}
@@ -77,6 +81,12 @@ export function Catalog({ t }: { t: Dictionary }) {
             <p>{t[product.description]}</p>
           </article>
         ))}
+      </div>
+      <div className="gallery-link">
+        <Link className="button primary" href={`/${locale}/gallery/`}>
+          {t.viewGallery}
+          <Icon name="arrow" />
+        </Link>
       </div>
       <p className="catalog-note">{t.catalogNote}</p>
     </section>

@@ -4,23 +4,32 @@ import { isIndexableSite, siteUrl, type SiteEnvironment } from "./site";
 
 type SeoEnvironment = SiteEnvironment & { GOOGLE_SITE_VERIFICATION?: string };
 
-export function languageUrls(env: SiteEnvironment = process.env) {
+export function languageUrls(
+  env: SiteEnvironment = process.env,
+  page: "" | "gallery/" = "",
+) {
   const base = siteUrl(env);
   return {
     ...Object.fromEntries(
-      locales.map((locale) => [locale, new URL(`/${locale}/`, base).href]),
+      locales.map((locale) => [
+        locale,
+        new URL(`/${locale}/${page}`, base).href,
+      ]),
     ),
-    "x-default": new URL("/pl/", base).href,
+    "x-default": new URL(`/pl/${page}`, base).href,
   } as Record<Locale | "x-default", string>;
 }
 
 export function pageMetadata(
   locale: Locale,
   env: SeoEnvironment = process.env,
+  page: "" | "gallery/" = "",
 ): Metadata {
   const t = dictionaries[locale];
   const base = siteUrl(env);
   const indexable = isIndexableSite(env);
+  const title = page ? t.galleryPageTitle : t.pageTitle;
+  const description = page ? t.galleryPageDescription : t.pageDescription;
   const image = {
     url: new URL(`/${locale}/share-image/`, base).href,
     width: 1200,
@@ -29,12 +38,12 @@ export function pageMetadata(
   };
   return {
     metadataBase: base,
-    title: t.pageTitle,
-    description: t.pageDescription,
+    title,
+    description,
     applicationName: "El_Inside",
     alternates: {
-      canonical: new URL(`/${locale}/`, base).href,
-      languages: languageUrls(env),
+      canonical: new URL(`/${locale}/${page}`, base).href,
+      languages: languageUrls(env, page),
     },
     robots: indexable
       ? {
@@ -47,9 +56,9 @@ export function pageMetadata(
       ? { google: env.GOOGLE_SITE_VERIFICATION }
       : undefined,
     openGraph: {
-      title: t.pageTitle,
-      description: t.pageDescription,
-      url: new URL(`/${locale}/`, base).href,
+      title,
+      description,
+      url: new URL(`/${locale}/${page}`, base).href,
       siteName: "El_Inside",
       locale: openGraphLocales[locale],
       alternateLocale: locales
@@ -60,8 +69,8 @@ export function pageMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: t.pageTitle,
-      description: t.pageDescription,
+      title,
+      description,
       images: [image],
     },
     icons: { icon: "/assets/logo.svg" },
@@ -72,11 +81,12 @@ export function siteSitemap(
   env: SiteEnvironment = process.env,
 ): MetadataRoute.Sitemap {
   if (!isIndexableSite(env)) return [];
-  const languages = languageUrls(env);
-  return locales.map((locale) => ({
-    url: new URL(`/${locale}/`, siteUrl(env)).href,
-    alternates: { languages },
-  }));
+  return (["", "gallery/"] as const).flatMap((page) =>
+    locales.map((locale) => ({
+      url: new URL(`/${locale}/${page}`, siteUrl(env)).href,
+      alternates: { languages: languageUrls(env, page) },
+    })),
+  );
 }
 
 export function siteRobots(

@@ -1,5 +1,6 @@
 "use client";
 import {
+  Suspense,
   createContext,
   useContext,
   useEffect,
@@ -7,7 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { ProductId } from "@/lib/products";
+import { isProductId, type ProductId } from "@/lib/products";
+import { useSearchParams } from "next/navigation";
 
 type Selection = { kind: "catalog" | "custom"; product: ProductId | "" };
 const WorkshopContext = createContext<{
@@ -18,6 +20,19 @@ export function useWorkshop() {
   const value = useContext(WorkshopContext);
   if (!value) throw new Error("WorkshopProvider is required");
   return value;
+}
+function SelectionFromUrl({
+  select,
+}: {
+  select: (selection: Selection) => void;
+}) {
+  const params = useSearchParams();
+  const piece = params.get("piece");
+  useEffect(() => {
+    if (piece && isProductId(piece))
+      select({ kind: "catalog", product: piece });
+  }, [piece, select]);
+  return null;
 }
 export function WorkshopProvider({ children }: { children: ReactNode }) {
   const [selection, select] = useState<Selection>({
@@ -104,6 +119,9 @@ export function WorkshopProvider({ children }: { children: ReactNode }) {
   }, []);
   return (
     <WorkshopContext.Provider value={{ selection, select }}>
+      <Suspense fallback={null}>
+        <SelectionFromUrl select={select} />
+      </Suspense>
       <div ref={root}>{children}</div>
     </WorkshopContext.Provider>
   );
