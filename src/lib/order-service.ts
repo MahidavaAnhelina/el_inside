@@ -1,19 +1,8 @@
 import { createHash } from "node:crypto";
-import type { CreateEmailOptions } from "resend";
-import { dictionaries } from "./i18n";
+import type { OrderDelivery } from "./order-delivery";
+import { ProtectionError, type OrderProtection } from "./order-protection";
 import { MAX_REQUEST_BYTES } from "./order-limits";
-import {
-  OrderError,
-  orderSchema,
-  parseAttachments,
-  type Order,
-} from "./order-validation";
-
-export type MailConfig = { from: string; to: string };
-export type SendMail = (
-  message: CreateEmailOptions,
-  idempotencyKey: string,
-) => Promise<{ error: unknown; data: { id: string } | null }>;
+import { OrderError, orderSchema, parseAttachments } from "./order-validation";
 
 async function readForm(request: Request) {
   const type = request.headers.get("content-type") || "";
@@ -47,37 +36,18 @@ async function readForm(request: Request) {
   }
 }
 
-export function emailText(order: Order) {
-  const t = dictionaries[order.locale];
-  return [
-    `El_Inside — ${order.requestId}`,
-    `Language / Język: ${order.locale}`,
-    `Name / Imię: ${order.name}`,
-    `Email: ${order.email}`,
-    `Request / Zapytanie: ${order.kind === "catalog" ? t.kindCatalog : t.kindCustom}`,
-    ...(order.kind === "catalog" && order.product
-      ? [
-          `Piece / Praca: ${t[order.product]}`,
-          `Version / Wersja: ${order.version === "same" ? t.versionSame : t.versionChanges}`,
-        ]
-      : []),
-    `Preferred date / Preferowany termin: ${order.date || "—"}`,
-    "",
-    "Details / Szczegóły:",
-    order.details || "—",
-    "",
-    "References / Inspiracje:",
-    order.links || "—",
-    "",
-    "This is an enquiry, not a confirmed order. / To zapytanie, nie potwierdzone zamówienie.",
-  ].join("\n");
-}
-const reply = (status: number, body: object) =>
-  Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
+const reply = (status: number, body: object, retryAfter?: number) =>
+  Response.json(body, {
+    status,
+    headers: {
+      "Cache-Control": "no-store",
+      ...(retryAfter ? { "Retry-After": String(retryAfter) } : {}),
+    },
+  });
 export async function handleOrder(
   request: Request,
-  config: MailConfig | null,
-  send: SendMail,
+  delivery: OrderDelivery | null,
+  protection: OrderProtection | null,
 ) {
   const origin = request.headers.get("origin");
   // Next.js can normalize the internal request URL to localhost behind a proxy.
@@ -93,34 +63,49 @@ export async function handleOrder(
   } catch {
     return reply(403, { error: "forbidden" });
   }
+  let dispatchStarted = false;
   try {
+    if (!delivery || !protection) return reply(503, { error: "unavailable" });
+    await protection.checkTraffic(request);
     const form = await readForm(request);
     const parsed = orderSchema.safeParse(Object.fromEntries(form));
     if (!parsed.success) throw new OrderError(400);
+    await protection.verify(form.get("cf-turnstile-response"));
     const attachments = await parseAttachments(form);
-    if (!config) return reply(503, { error: "unavailable" });
     const order = parsed.data;
-    const message: CreateEmailOptions = {
-      from: `El_Inside <${config.from}>`,
-      to: [config.to],
-      replyTo: order.email,
-      subject: `El_Inside — ${{ pl: "nowe zapytanie", en: "new enquiry", ru: "новая заявка" }[order.locale]} (${order.requestId.slice(0, 8)})`,
-      text: emailText(order),
-      attachments,
-    };
-    // Bind retries to the exact message, including attachment bytes and destination.
+    const { requestId, ...content } = order;
+    // A fresh client UUID must not bypass duplicate detection for unchanged content.
     const digest = createHash("sha256")
-      .update(JSON.stringify(message))
+      .update(
+        JSON.stringify({
+          destination: delivery.destination,
+          content,
+          attachments,
+        }),
+      )
       .digest("hex");
-    const result = await send(message, `order/${order.requestId}/${digest}`);
-    if (result.error || !result.data?.id)
-      return reply(502, { error: "send_failed" });
-    return reply(200, { ok: true, requestId: order.requestId });
+    const reservation = await protection.reserve(digest, requestId);
+    if (reservation.sent)
+      return reply(200, { ok: true, requestId: reservation.requestId });
+    dispatchStarted = true;
+    await delivery.send(order, attachments, `order/${digest}`);
+    await protection.complete(digest, requestId);
+    return reply(200, { ok: true, requestId });
   } catch (error) {
+    if (dispatchStarted) return reply(409, { error: "delivery_uncertain" });
+    if (error instanceof ProtectionError)
+      return reply(
+        error.status,
+        {
+          error: error.code,
+          ...(error.requestId ? { requestId: error.requestId } : {}),
+        },
+        error.retryAfter,
+      );
     if (error instanceof OrderError)
       return reply(error.status, {
         error: error.status === 413 ? "too_large" : "invalid",
       });
-    return reply(502, { error: "send_failed" });
+    return reply(503, { error: "unavailable" });
   }
 }

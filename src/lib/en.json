@@ -104,7 +104,7 @@
   "sending": "Sending…",
   "sendAnother": "New enquiry",
   "privacyTitle": "What happens to your information?",
-  "privacyText": "Your name, email, message and attachments are sent to El_Inside through Vercel and Resend so I can reply to your enquiry. They are not stored in a website database or used for a newsletter. Only include material needed for our conversation.",
+  "privacyText": "Your name, email, message and attachments reach El_Inside through Vercel and the selected delivery service: Telegram or Resend. Cloudflare Turnstile protects the form; Upstash stores technical counters and hashes for spam and duplicate prevention for up to 24 hours, without enquiry text or files. Your information is not used for newsletters. Only include material needed for our conversation.",
   "sendError": "Your enquiry could not be sent. Your details are still in the form. Please try again shortly.",
   "unavailable": "The form is temporarily unavailable. Please try again later.",
   "invalid": "Check the required fields, email and links (full https:// addresses, one per line). Include a description for a new idea or changes.",
@@ -114,5 +114,10 @@
   "pageTitle": "El_Inside — little things, so much love",
   "pageDescription": "Hand-knitted clothes and crocheted toys by El_Inside. Explore past creations and share your own idea.",
   "sendingHint": "Please keep this page open while your enquiry is sending.",
-  "requestId": "Enquiry reference"
+  "requestId": "Enquiry reference",
+  "verificationLabel": "Protection against automated enquiries",
+  "verificationRequired": "Please complete the verification again before sending.",
+  "verificationUnavailable": "Verification is temporarily unavailable. Check your connection and content blockers. Your form details remain on this page.",
+  "rateLimited": "We are receiving too many enquiries right now. Please wait and try later. Your form details remain on this page.",
+  "deliveryUncertain": "We could not confirm delivery. Your enquiry may already have arrived, so we do not resend it automatically. Keep this enquiry number:"
 }

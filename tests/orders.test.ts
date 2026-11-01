@@ -1,6 +1,22 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { handleOrder, type SendMail } from "../src/lib/order-service";
+import { handleOrder as protectedOrder } from "../src/lib/order-service";
+import {
+  createMailDelivery,
+  type MailConfig,
+  type SendMail,
+} from "../src/lib/order-delivery";
+import type { OrderProtection } from "../src/lib/order-protection";
+const guard: OrderProtection = {
+  async checkTraffic() {},
+  async verify() {},
+  async reserve(_, requestId) {
+    return { sent: false, requestId };
+  },
+  async complete() {},
+};
+const handleOrder = (req: Request, config: MailConfig | null, send: SendMail) =>
+  protectedOrder(req, config ? createMailDelivery(config, send) : null, guard);
 import { MAX_FILE_BYTES, MAX_REQUEST_BYTES } from "../src/lib/order-limits";
 
 const config = { from: "studio@example.com", to: "owner@example.com" };
@@ -192,7 +208,7 @@ test("provider errors and network failures never return success or disclose deta
     },
   ]) {
     const response = await handleOrder(request(), config, send);
-    assert.equal(response.status, 502);
+    assert.equal(response.status, 409);
     assert.equal((await response.text()).includes("private"), false);
   }
 });

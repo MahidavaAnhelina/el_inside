@@ -6,6 +6,7 @@ import { products, type ProductId } from "@/lib/products";
 import { FILE_TYPES, MAX_FILES, MAX_FILE_BYTES } from "@/lib/order-limits";
 import { useWorkshop } from "./workshop-provider";
 import { Icon } from "./icon";
+import { Turnstile } from "./turnstile";
 
 function AttachmentPreview({ file }: { file: File }) {
   const image = useRef<HTMLImageElement>(null);
@@ -32,6 +33,8 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
   const [dragging, setDragging] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
+  const [resetCount, setResetCount] = useState(0);
   const requestId = useRef("");
   const [sentId, setSentId] = useState("");
   const summary = useRef<HTMLElement>(null);
@@ -70,7 +73,12 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "sending") return;
+    if (!token) {
+      setError(t.verificationRequired);
+      return;
+    }
     const data = new FormData(event.currentTarget);
+    data.set("cf-turnstile-response", token);
     data.set("locale", locale);
     data.set("kind", selection.kind);
     data.set("product", selection.kind === "catalog" ? selection.product : "");
@@ -84,27 +92,43 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
       const response = await fetch("/api/orders/", {
         method: "POST",
         body: data,
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(35000),
       });
       if (!response.ok) {
+        let uncertainId = requestId.current;
+        if (response.status === 409) {
+          const result = await response.json().catch(() => null);
+          if (typeof result?.requestId === "string")
+            uncertainId = result.requestId;
+        }
         const message =
-          response.status === 413
-            ? t.tooLarge
-            : response.status === 400
-              ? t.invalid
-              : response.status === 503
-                ? t.unavailable
-                : t.sendError;
+          response.status === 403
+            ? t.verificationRequired
+            : response.status === 429
+              ? t.rateLimited
+              : response.status === 409
+                ? `${t.deliveryUncertain} ${uncertainId}`
+                : response.status === 413
+                  ? t.tooLarge
+                  : response.status === 400
+                    ? t.invalid
+                    : response.status === 503
+                      ? t.unavailable
+                      : t.sendError;
         setError(message);
         setStatus("idle");
         return;
       }
-      setSentId(requestId.current);
+      const result = await response.json();
+      setSentId(result.requestId);
       setStatus("success");
       setFiles([]);
     } catch {
-      setError(t.sendError);
+      setError(`${t.deliveryUncertain} ${requestId.current}`);
       setStatus("idle");
+    } finally {
+      setToken("");
+      setResetCount((value) => value + 1);
     }
   }
   function reset() {
@@ -341,7 +365,19 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
             <summary>{t.privacyTitle}</summary>
             <p>{t.privacyText}</p>
           </details>
-          <button className="button primary submit" type="submit">
+          {status !== "success" && (
+            <Turnstile
+              t={t}
+              locale={locale}
+              resetCount={resetCount}
+              onToken={setToken}
+            />
+          )}
+          <button
+            className="button primary submit"
+            type="submit"
+            disabled={!token}
+          >
             <span>{status === "sending" ? t.sending : t.send}</span>
             <Icon name="arrow" />
           </button>

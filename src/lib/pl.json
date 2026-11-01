@@ -104,7 +104,7 @@
   "sending": "Wysyłanie…",
   "sendAnother": "Nowe zapytanie",
   "privacyTitle": "Co dzieje się z Twoimi danymi?",
-  "privacyText": "Imię, e-mail, treść i załączniki trafią do El_Inside przez Vercel i Resend, aby umożliwić odpowiedź na zapytanie. Nie zapisujemy ich w bazie strony ani nie używamy do newslettera. Wyślij tylko materiały potrzebne do rozmowy.",
+  "privacyText": "Imię, e-mail, treść i załączniki trafiają do El_Inside przez Vercel i wybraną usługę dostarczania: Telegram lub Resend. Formularz chroni Cloudflare Turnstile; Upstash przechowuje techniczne liczniki i skróty danych do ochrony przed spamem i powtórzeniami przez maksymalnie 24 godziny, bez treści zgłoszenia i plików. Dane nie służą do newslettera. Wyślij tylko materiały potrzebne do rozmowy.",
   "sendError": "Nie udało się wysłać zapytania. Dane zostały w formularzu. Spróbuj ponownie za chwilę.",
   "unavailable": "Formularz jest chwilowo niedostępny. Spróbuj ponownie później.",
   "invalid": "Sprawdź wymagane pola, adres e-mail i linki (pełne adresy https://, po jednym w wierszu). Przy własnym pomyśle lub zmianach dodaj opis.",
@@ -114,5 +114,10 @@
   "pageTitle": "El_Inside — małe rzeczy, dużo czułości",
   "pageDescription": "Ręcznie dziergane ubranka i szydełkowe zabawki El_Inside. Zobacz galerię i opowiedz o swoim pomyśle.",
   "sendingHint": "Nie zamykaj strony podczas wysyłania.",
-  "requestId": "Numer zapytania"
+  "requestId": "Numer zapytania",
+  "verificationLabel": "Ochrona przed automatycznymi zgłoszeniami",
+  "verificationRequired": "Przejdź ponownie weryfikację przed wysłaniem.",
+  "verificationUnavailable": "Weryfikacja jest chwilowo niedostępna. Sprawdź połączenie i blokowanie treści. Dane formularza pozostają na tej stronie.",
+  "rateLimited": "Teraz otrzymujemy zbyt wiele zgłoszeń. Poczekaj i spróbuj później. Dane formularza pozostają na tej stronie.",
+  "deliveryUncertain": "Nie udało się potwierdzić dostarczenia. Zapytanie mogło już dotrzeć, więc nie wysyłamy go automatycznie ponownie. Zapisz numer zgłoszenia:"
 }

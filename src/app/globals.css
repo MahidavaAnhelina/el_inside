@@ -1917,3 +1917,14 @@ html[lang="ru"] .hero h1 {
     font-size: clamp(31px, 8.7vw, 42px);
   }
 }
+
+.verification {
+  margin-block: 20px;
+}
+.verification .field-help {
+  margin-bottom: 12px;
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
