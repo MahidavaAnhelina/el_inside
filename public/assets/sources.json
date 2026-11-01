@@ -1,0 +1,16 @@
+{
+  "images": {
+    "clothes.jpg": "https://www.pinterest.com/pin/843228730278950877/",
+    "body.jpg": "https://www.pinterest.com/pin/843228730278950685/",
+    "frog.jpg": "https://www.pinterest.com/pin/843228730278950538/",
+    "sea.jpg": "https://www.pinterest.com/pin/843228730278950506/",
+    "giraffe.jpg": "https://www.pinterest.com/pin/843228730278950938/"
+  },
+  "provenance": "Photos from the board supplied by the user and identified as her friend Elina’s work. Descriptive product names are prototype copy, not confirmed catalog names.",
+  "brand": "Original El_Inside logo provided by the user as PDF. Converted to SVG with a fitted viewport. Removed only the two full-page white background rectangles; artwork and original lettering preserved. Paired with readable brand text in the website header.",
+  "fonts": {
+    "Manrope": "https://github.com/google/fonts/tree/main/ofl/manrope",
+    "Prata": "https://github.com/google/fonts/tree/main/ofl/prata",
+    "Allura": "https://github.com/google/fonts/tree/main/ofl/allura"
+  }
+}
