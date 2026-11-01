@@ -1,79 +1,11 @@
-import { z } from "zod";
-import { locales } from "./i18n";
 import { FILE_TYPES, MAX_FILES, MAX_FILE_BYTES } from "./order-limits";
+export { orderSchema, type Order } from "./order-schema";
 
-function todayInPoland() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Warsaw",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date());
-}
-const links = z
-  .string()
-  .trim()
-  .max(2000)
-  .refine(
-    (value) =>
-      !value ||
-      value
-        .split(/\r?\n/)
-        .filter(Boolean)
-        .every((line) => {
-          try {
-            const url = new URL(line.trim());
-            return (
-              ["http:", "https:"].includes(url.protocol) &&
-              !url.username &&
-              !url.password
-            );
-          } catch {
-            return false;
-          }
-        }),
-  );
-export const orderSchema = z
-  .object({
-    locale: z.enum(locales),
-    kind: z.enum(["catalog", "custom"]),
-    product: z.enum(["", "frog", "body", "sea", "giraffe"]),
-    version: z.enum(["same", "changes"]),
-    name: z
-      .string()
-      .trim()
-      .min(1)
-      .max(80)
-      .refine((value) => !/[\r\n\x00-\x1f]/.test(value)),
-    email: z.email().max(200),
-    details: z.string().trim().max(3000),
-    links,
-    date: z
-      .union([z.literal(""), z.iso.date()])
-      .refine((value) => !value || value >= todayInPoland()),
-    requestId: z.uuid(),
-    website: z.string().max(0),
-  })
-  .superRefine((order, context) => {
-    if (order.kind === "catalog" && !order.product)
-      context.addIssue({
-        code: "custom",
-        path: ["product"],
-        message: "Choose a piece",
-      });
-    if (
-      (order.kind === "custom" || order.version === "changes") &&
-      !order.details
-    )
-      context.addIssue({
-        code: "custom",
-        path: ["details"],
-        message: "Describe your idea or changes",
-      });
-  });
-export type Order = z.infer<typeof orderSchema>;
 export class OrderError extends Error {
-  constructor(public status: number) {
+  constructor(
+    public status: number,
+    public field?: "files",
+  ) {
     super("Invalid order request");
   }
 }
@@ -107,17 +39,17 @@ export async function parseAttachments(data: FormData) {
     values.length > MAX_FILES ||
     values.some((value) => typeof value === "string")
   )
-    throw new OrderError(400);
+    throw new OrderError(400, "files");
   const files = values as File[];
   if (files.reduce((sum, file) => sum + file.size, 0) > MAX_FILE_BYTES)
-    throw new OrderError(413);
+    throw new OrderError(413, "files");
   return Promise.all(
     files.map(async (file, index) => {
       if (!file.size || !FILE_TYPES.includes(file.type))
-        throw new OrderError(400);
+        throw new OrderError(400, "files");
       const content = Buffer.from(await file.arrayBuffer());
       const extension = fileExtension(content, file.type);
-      if (!extension) throw new OrderError(400);
+      if (!extension) throw new OrderError(400, "files");
       const stem =
         file.name
           .replace(/\.[^.]*$/, "")

@@ -242,3 +242,53 @@ test("Russian enquiries retain the locale, translated piece and customer details
   assert.match(calls[0].message.text ?? "", /Лягушка-путешественница/);
   assert.match(calls[0].message.text ?? "", /Зелёная лягушка/);
 });
+
+test("invalid references and oversized year identify both editable fields", async () => {
+  const { calls, send } = sender();
+  const response = await handleOrder(
+    request({ links: "not a URL", date: "275760-03-12" }),
+    config,
+    send,
+  );
+  assert.equal(response.status, 400);
+  assert.deepEqual(await response.json(), {
+    error: "invalid",
+    fields: { links: "invalid", date: "invalid" },
+  });
+  assert.equal(calls.length, 0);
+});
+
+test("missing custom details and contact information identify each field", async () => {
+  const { calls, send } = sender();
+  const response = await handleOrder(
+    request({
+      kind: "custom",
+      product: "",
+      details: "",
+      name: "",
+      email: "incorrect",
+    }),
+    config,
+    send,
+  );
+  const body = await response.json();
+  assert.deepEqual(Object.keys(body.fields).sort(), [
+    "details",
+    "email",
+    "name",
+  ]);
+  assert.equal(calls.length, 0);
+});
+
+test("unreadable attachments point to the upload field", async () => {
+  const { send } = sender();
+  const response = await handleOrder(
+    request({}, [new File(["not PNG"], "image.png", { type: "image/png" })]),
+    config,
+    send,
+  );
+  assert.deepEqual(await response.json(), {
+    error: "invalid",
+    fields: { files: "invalid" },
+  });
+});

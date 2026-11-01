@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "src/components/order-form.tsx"
+        ],
+        "createdAt": "2026-11-01T14:51:39.849Z",
+        "reason": "AttachmentPreview assigns a real local file object URL in useEffect and revokes it on cleanup; the source is intentionally dynamic."
+      }
+    ]
+  }
+}

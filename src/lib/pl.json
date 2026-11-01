@@ -119,5 +119,13 @@
   "verificationRequired": "Przejdź ponownie weryfikację przed wysłaniem.",
   "verificationUnavailable": "Weryfikacja jest chwilowo niedostępna. Sprawdź połączenie i blokowanie treści. Dane formularza pozostają na tej stronie.",
   "rateLimited": "Teraz otrzymujemy zbyt wiele zgłoszeń. Poczekaj i spróbuj później. Dane formularza pozostają na tej stronie.",
-  "deliveryUncertain": "Nie udało się potwierdzić dostarczenia. Zapytanie mogło już dotrzeć, więc nie wysyłamy go automatycznie ponownie. Zapisz numer zgłoszenia:"
+  "deliveryUncertain": "Nie udało się potwierdzić dostarczenia. Zapytanie mogło już dotrzeć, więc nie wysyłamy go automatycznie ponownie. Zapisz numer zgłoszenia:",
+  "errorSummary": "Sprawdź zaznaczone pola:",
+  "errorProduct": "Wybierz pracę z galerii.",
+  "errorDetails": "Opisz swój pomysł lub zmiany (do 3000 znaków).",
+  "errorLinks": "Wklej pełne linki z https:// lub http://, każdy w osobnym wierszu, albo pozostaw pole puste.",
+  "errorName": "Podaj imię (od 1 do 80 znaków).",
+  "errorEmail": "Wpisz e-mail w formacie name@example.com.",
+  "errorDate": "Podaj prawidłową datę z czterocyfrowym rokiem, nie wcześniejszą niż dzisiaj, albo pozostaw pole puste.",
+  "errorFiles": "Sprawdź załączniki: do 5 plików JPG, PNG, WEBP lub PDF, łącznie do 3 MB. Usuń lub zastąp uszkodzony plik."
 }

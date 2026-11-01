@@ -26,6 +26,14 @@ export function WorkshopProvider({ children }: { children: ReactNode }) {
   });
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const header = root.current?.querySelector(".site-header");
+    const headerObserver = new ResizeObserver(([entry]) => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${entry.target.getBoundingClientRect().height}px`,
+      );
+    });
+    if (header) headerObserver.observe(header);
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
     const animations = new Set<Animation>();
     function animate(
@@ -89,6 +97,7 @@ export function WorkshopProvider({ children }: { children: ReactNode }) {
     preference.addEventListener("change", onChange);
     return () => {
       observer.disconnect();
+      headerObserver.disconnect();
       cancel();
       preference.removeEventListener("change", onChange);
     };

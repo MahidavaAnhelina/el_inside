@@ -1,3 +1,4 @@
+import { fieldErrorsFromIssues } from "./order-schema";
 import { createHash } from "node:crypto";
 import type { OrderDelivery } from "./order-delivery";
 import { ProtectionError, type OrderProtection } from "./order-protection";
@@ -69,7 +70,11 @@ export async function handleOrder(
     await protection.checkTraffic(request);
     const form = await readForm(request);
     const parsed = orderSchema.safeParse(Object.fromEntries(form));
-    if (!parsed.success) throw new OrderError(400);
+    if (!parsed.success)
+      return reply(400, {
+        error: "invalid",
+        fields: fieldErrorsFromIssues(parsed.error.issues),
+      });
     await protection.verify(form.get("cf-turnstile-response"));
     const attachments = await parseAttachments(form);
     const order = parsed.data;
@@ -105,6 +110,7 @@ export async function handleOrder(
     if (error instanceof OrderError)
       return reply(error.status, {
         error: error.status === 413 ? "too_large" : "invalid",
+        ...(error.field ? { fields: { [error.field]: "invalid" } } : {}),
       });
     return reply(503, { error: "unavailable" });
   }

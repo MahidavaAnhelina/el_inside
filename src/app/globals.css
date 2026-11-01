@@ -1928,3 +1928,66 @@ html[lang="ru"] .hero h1 {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 18px rgb(47 37 45 / 4%);
+}
+html {
+  scroll-padding-top: calc(var(--header-height, 140px) + 16px);
+}
+.brand-wordmark {
+  display: inline-block;
+  font-family: Allura, cursive;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.15;
+  color: var(--plum);
+  transform: rotate(-3deg);
+  transform-origin: center;
+  white-space: nowrap;
+  text-transform: none;
+}
+.brand-wordmark:not(.brand-name):not(.signature) {
+  font-size: 1.35em;
+}
+.signature.brand-wordmark {
+  font-size: 48px;
+}
+.field-error {
+  display: block;
+  margin-top: 8px;
+  color: #a12542;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+.field [aria-invalid="true"] {
+  border-color: #a12542;
+  box-shadow: 0 0 0 1px #a12542;
+  background: #fff8f8;
+}
+.form-error-summary {
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  border: 1px solid #a12542;
+  border-radius: 4px;
+  background: #fff8f8;
+  color: #852039;
+}
+.form-error-summary ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+.form-error-summary li + li {
+  margin-top: 8px;
+}
+.form-error-summary a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

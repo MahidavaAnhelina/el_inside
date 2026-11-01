@@ -1,3 +1,4 @@
+import { BrandName, BrandText } from "./brand-name";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { dictionaries } from "@/lib/i18n";
@@ -14,24 +15,32 @@ export function Home({ locale }: { locale: Locale }) {
         {t.skip}
       </a>
 
-      <header className="header wrap">
-        <a className="brand brand-logo" href="#main" aria-label="El_Inside">
-          <Image src="/assets/logo.svg" width={64} height={72} alt="" preload />
-          <span className="brand-name">El_Inside</span>
-        </a>
-        <nav aria-label="Menu">
-          <a href="#works">{t.navWorks}</a>
-          <a href="#about">{t.navAbout}</a>
-          <a href="#how">{t.navHow}</a>
-        </nav>
-        <div className="header-actions">
-          <LanguageSwitcher locale={locale} />
-          <a className="header-cta" href="#order">
-            <span>{t.navOrder}</span>
-            <svg aria-hidden="true">
-              <use href="#arrow"></use>
-            </svg>
+      <header className="site-header">
+        <div className="header wrap">
+          <a className="brand brand-logo" href="#main" aria-label="El_Inside">
+            <Image
+              src="/assets/logo.svg"
+              width={64}
+              height={72}
+              alt=""
+              preload
+            />
+            <BrandName className="brand-name" />
           </a>
+          <nav aria-label="Menu">
+            <a href="#works">{t.navWorks}</a>
+            <a href="#about">{t.navAbout}</a>
+            <a href="#how">{t.navHow}</a>
+          </nav>
+          <div className="header-actions">
+            <LanguageSwitcher locale={locale} />
+            <a className="header-cta" href="#order">
+              <span>{t.navOrder}</span>
+              <svg aria-hidden="true">
+                <use href="#arrow"></use>
+              </svg>
+            </a>
+          </div>
         </div>
       </header>
       <main id="main">
@@ -80,7 +89,9 @@ export function Home({ locale }: { locale: Locale }) {
               />
               <figcaption>{t.frogNote}</figcaption>
             </figure>
-            <span className="photo-side">{t.photoSide}</span>
+            <span className="photo-side">
+              <BrandText>{t.photoSide}</BrandText>
+            </span>
           </div>
         </section>
         <div className="values wrap">
@@ -111,11 +122,15 @@ export function Home({ locale }: { locale: Locale }) {
             />
           </div>
           <div className="about-copy">
-            <h2 id="about-title">{t.aboutTitle}</h2>
+            <h2 id="about-title">
+              <BrandText>{t.aboutTitle}</BrandText>
+            </h2>
             <p className="about-lead">{t.aboutLead}</p>
-            <p>{t.aboutText}</p>
+            <p>
+              <BrandText>{t.aboutText}</BrandText>
+            </p>
             <p>{t.aboutStatus}</p>
-            <span className="signature">El_Inside</span>
+            <BrandName className="signature" />
           </div>
         </section>
         <section id="how" className="how wrap" aria-labelledby="how-title">
@@ -199,7 +214,7 @@ export function Home({ locale }: { locale: Locale }) {
               alt=""
               loading="lazy"
             />
-            <span className="brand-name">El_Inside</span>
+            <BrandName className="brand-name" />
           </a>
           <p>{t.footerText}</p>
         </div>
@@ -214,7 +229,9 @@ export function Home({ locale }: { locale: Locale }) {
             <use href="#arrow"></use>
           </svg>
         </a>
-        <small>{t.footerDemo}</small>
+        <small>
+          <BrandText>{t.footerDemo}</BrandText>
+        </small>
       </footer>
       <svg
         className="svg-defs"

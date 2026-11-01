@@ -1,12 +1,22 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { flushSync } from "react-dom";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { products, type ProductId } from "@/lib/products";
 import { FILE_TYPES, MAX_FILES, MAX_FILE_BYTES } from "@/lib/order-limits";
 import { useWorkshop } from "./workshop-provider";
 import { Icon } from "./icon";
 import { Turnstile } from "./turnstile";
+import { BrandText } from "./brand-name";
+import {
+  orderSchema,
+  fieldErrorsFromIssues,
+  orderFields,
+  todayInPoland,
+  type FieldErrors,
+  type OrderField,
+} from "@/lib/order-schema";
 
 function AttachmentPreview({ file }: { file: File }) {
   const image = useRef<HTMLImageElement>(null);
@@ -33,6 +43,7 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
   const [dragging, setDragging] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [token, setToken] = useState("");
   const [resetCount, setResetCount] = useState(0);
   const requestId = useRef("");
@@ -67,24 +78,80 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
     }
     requestId.current = "";
     setFileError(false);
+    setFieldErrors((previous) => ({ ...previous, files: undefined }));
     setFiles(merged);
     setError("");
   }
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (status === "sending") return;
-    if (!token) {
-      setError(t.verificationRequired);
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    data.set("cf-turnstile-response", token);
+  const messages: Record<OrderField, string> = {
+    product: t.errorProduct,
+    details: t.errorDetails,
+    links: t.errorLinks,
+    name: t.errorName,
+    email: t.errorEmail,
+    date: t.errorDate,
+    files: t.errorFiles,
+  };
+  function fieldProps(name: OrderField) {
+    return {
+      id: `order-${name}`,
+      "aria-invalid": !!fieldErrors[name],
+      "aria-describedby": fieldErrors[name] ? `order-${name}-error` : undefined,
+    };
+  }
+  function fieldError(name: OrderField) {
+    return fieldErrors[name] ? (
+      <span className="field-error" id={`order-${name}-error`}>
+        {messages[name]}
+      </span>
+    ) : null;
+  }
+  function collectData(element: HTMLFormElement) {
+    const data = new FormData(element);
     data.set("locale", locale);
     data.set("kind", selection.kind);
     data.set("product", selection.kind === "catalog" ? selection.product : "");
     data.set("version", selection.kind === "catalog" ? version : "same");
+    data.set("requestId", requestId.current || crypto.randomUUID());
+    return data;
+  }
+  function validate(element: HTMLFormElement, data: FormData) {
+    const parsed = orderSchema.safeParse(Object.fromEntries(data));
+    const errors = parsed.success
+      ? {}
+      : fieldErrorsFromIssues(parsed.error.issues);
+    const date = element.elements.namedItem("date") as HTMLInputElement | null;
+    if (date?.validity.badInput) errors.date = "invalid";
+    return errors;
+  }
+  function focusField(name: OrderField) {
+    const element = form.current?.querySelector<HTMLElement>(
+      `[id="order-${name}"]`,
+    );
+    element?.focus({ preventScroll: true });
+    element?.scrollIntoView({ block: "center", behavior: "instant" });
+  }
+  function showErrors(errors: FieldErrors) {
+    flushSync(() => setFieldErrors(errors));
+    const first = orderFields.find((name) => errors[name]);
+    if (first) focusField(first);
+  }
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status === "sending") return;
     requestId.current ||= crypto.randomUUID();
-    data.set("requestId", requestId.current);
+    const data = collectData(event.currentTarget);
+    const errors = validate(event.currentTarget, data);
+    if (Object.keys(errors).length) {
+      setError("");
+      showErrors(errors);
+      return;
+    }
+    setFieldErrors({});
+    if (!token) {
+      setError(t.verificationRequired);
+      return;
+    }
+    data.set("cf-turnstile-response", token);
     files.forEach((file) => data.append("files", file));
     setError("");
     setStatus("sending");
@@ -95,6 +162,17 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
         signal: AbortSignal.timeout(35000),
       });
       if (!response.ok) {
+        if (response.status === 400 || response.status === 413) {
+          const result = await response.json().catch(() => null);
+          const errors: FieldErrors = {};
+          for (const field of orderFields)
+            if (result?.fields?.[field]) errors[field] = "invalid";
+          if (Object.keys(errors).length) {
+            setStatus("idle");
+            showErrors(errors);
+            return;
+          }
+        }
         let uncertainId = requestId.current;
         if (response.status === 409) {
           const result = await response.json().catch(() => null);
@@ -137,6 +215,7 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
     setFiles([]);
     setFileError(false);
     setError("");
+    setFieldErrors({});
     setVersion("same");
     select({ kind: "catalog", product: "" });
     setStatus("idle");
@@ -148,13 +227,56 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
     <div className="form-shell">
       <form
         ref={form}
+        noValidate
         onSubmit={submit}
+        onBlur={(event) => {
+          const name = event.target.getAttribute("name") as OrderField;
+          if (!orderFields.includes(name) || name === "files") return;
+          const errors = validate(
+            event.currentTarget,
+            collectData(event.currentTarget),
+          );
+          setFieldErrors((previous) => ({ ...previous, [name]: errors[name] }));
+        }}
         hidden={status === "success"}
-        onChange={() => {
+        onChange={(event) => {
           requestId.current = "";
           setError("");
+          const name = event.target.getAttribute("name") || "";
+          setFieldErrors((previous) => {
+            const next = { ...previous };
+            if (orderFields.includes(name as OrderField))
+              delete next[name as OrderField];
+            if (name === "kind" || name === "version") {
+              delete next.product;
+              delete next.details;
+            }
+            return next;
+          });
         }}
       >
+        {orderFields.some((name) => fieldErrors[name]) && (
+          <div className="form-error-summary" role="alert">
+            <strong>{t.errorSummary}</strong>
+            <ul>
+              {orderFields
+                .filter((name) => fieldErrors[name])
+                .map((name) => (
+                  <li key={name}>
+                    <a
+                      href={`#order-${name}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        focusField(name);
+                      }}
+                    >
+                      {messages[name]}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
         <fieldset disabled={status === "sending"} className="form-fields">
           <fieldset className="request-kind">
             <legend>{t.kindLegend}</legend>
@@ -186,6 +308,7 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
               <label className="field">
                 <span>{t.selectWork}</span>
                 <select
+                  {...fieldProps("product")}
                   name="product"
                   required
                   value={selection.product}
@@ -203,6 +326,7 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
                     </option>
                   ))}
                 </select>
+                {fieldError("product")}
               </label>
               {selected && (
                 <div className="selected-product">
@@ -249,12 +373,14 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
                   : t.details}
             </span>
             <textarea
+              {...fieldProps("details")}
               name="details"
               rows={4}
               maxLength={3000}
               required={requiredDetails}
               placeholder={t.detailsPlaceholder}
             />
+            {fieldError("details")}
           </label>
           <div className="field">
             <span id="references-label">{t.references}</span>
@@ -276,11 +402,12 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
               <strong>{t.uploadTitle}</strong>
               <small>{t.uploadHint}</small>
               <input
+                {...fieldProps("files")}
                 type="file"
                 accept={FILE_TYPES.join(",")}
                 multiple
                 aria-labelledby="references-label"
-                aria-describedby="file-error"
+                aria-describedby={`file-error${fieldErrors.files ? " order-files-error" : ""}`}
                 onChange={(event) => {
                   addFiles(Array.from(event.target.files ?? []));
                   event.target.value = "";
@@ -290,6 +417,7 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
             <p id="file-error" className="error" role="alert">
               {fileError ? t.fileError : ""}
             </p>
+            {fieldError("files")}
             <ul className="file-list">
               {files.map((file, index) => (
                 <li key={`${file.name}-${file.lastModified}-${file.size}`}>
@@ -304,6 +432,10 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
                     onClick={() => {
                       setFiles(files.filter((_, i) => i !== index));
                       setFileError(false);
+                      setFieldErrors((previous) => ({
+                        ...previous,
+                        files: undefined,
+                      }));
                       requestId.current = "";
                     }}
                   >
@@ -316,26 +448,31 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
           <label className="field">
             <span>{t.linksLabel}</span>
             <textarea
+              {...fieldProps("links")}
               name="links"
               rows={2}
               maxLength={2000}
               placeholder={t.linksPlaceholder}
             />
+            {fieldError("links")}
           </label>
           <div className="field-pair">
             <label className="field">
               <span>{t.nameLabel}</span>
               <input
+                {...fieldProps("name")}
                 name="name"
                 autoComplete="given-name"
                 required
                 maxLength={80}
                 placeholder={t.namePlaceholder}
               />
+              {fieldError("name")}
             </label>
             <label className="field">
               <span>{t.emailLabel}</span>
               <input
+                {...fieldProps("email")}
                 name="email"
                 type="email"
                 autoComplete="email"
@@ -343,12 +480,23 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
                 maxLength={200}
                 placeholder="you@example.com"
               />
+              {fieldError("email")}
             </label>
           </div>
           <label className="field">
             <span>{t.dateLabel}</span>
-            <input name="date" type="date" />
-            <small className="field-help">{t.dateHint}</small>
+            <input
+              {...fieldProps("date")}
+              name="date"
+              type="date"
+              min={todayInPoland()}
+              max="9999-12-31"
+              aria-describedby={`date-hint${fieldErrors.date ? " order-date-error" : ""}`}
+            />
+            {fieldError("date")}
+            <small className="field-help" id="date-hint">
+              {t.dateHint}
+            </small>
           </label>
           <div className="honeypot" aria-hidden="true">
             <label>
@@ -363,7 +511,9 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
           </div>
           <details className="privacy-note">
             <summary>{t.privacyTitle}</summary>
-            <p>{t.privacyText}</p>
+            <p>
+              <BrandText>{t.privacyText}</BrandText>
+            </p>
           </details>
           {status !== "success" && (
             <Turnstile
