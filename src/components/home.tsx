@@ -7,6 +7,8 @@ import { Catalog } from "./catalog";
 import { OrderForm } from "./order-form";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
+import { products } from "@/lib/products";
+import { ProductPhoto } from "./product-photo";
 import { IconDefs } from "./icon-defs";
 
 export function Home({ locale }: { locale: Locale }) {
@@ -26,7 +28,7 @@ export function Home({ locale }: { locale: Locale }) {
               <em>{t.heroTwo}</em>
             </h1>
             <p>{t.heroText}</p>
-            <a className="button primary" href="#works">
+            <a className="button primary" href="#about">
               <span>{t.heroCta}</span>
               <svg aria-hidden="true">
                 <use href="#arrow"></use>
@@ -55,12 +57,10 @@ export function Home({ locale }: { locale: Locale }) {
               </figcaption>
             </figure>
             <figure className="little-photo">
-              <Image
-                sizes="200px"
-                src="/assets/frog.jpg"
-                width={474}
-                height={842}
+              <ProductPhoto
+                image={products.find((product) => product.id === "frog")!.image}
                 alt={t.frogAlt}
+                sizes="200px"
               />
               <figcaption>{t.frogNote}</figcaption>
             </figure>
@@ -69,18 +69,6 @@ export function Home({ locale }: { locale: Locale }) {
             </span>
           </div>
         </section>
-        <div className="values wrap">
-          <span>{t.value1}</span>
-          <svg aria-hidden="true" className="value-mark" viewBox="0 0 24 24">
-            <path d="M12 4v16M4 12h16M6 6l12 12M6 18 18 6"></path>
-          </svg>
-          <span>{t.value2}</span>
-          <svg aria-hidden="true" className="value-mark" viewBox="0 0 24 24">
-            <path d="M12 4v16M4 12h16M6 6l12 12M6 18 18 6"></path>
-          </svg>
-          <span>{t.value3}</span>
-        </div>
-        <Catalog t={t} locale={locale} />
         <section
           id="about"
           className="about wrap"
@@ -108,6 +96,7 @@ export function Home({ locale }: { locale: Locale }) {
             <BrandName className="signature" />
           </div>
         </section>
+        <Catalog t={t} locale={locale} />
         <section id="how" className="how wrap" aria-labelledby="how-title">
           <h2 id="how-title">{t.howTitle}</h2>
           <ol>

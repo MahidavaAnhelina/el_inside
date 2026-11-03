@@ -21,25 +21,25 @@ export function emailText(order: Order) {
   const t = dictionaries[order.locale];
   return [
     `El_Inside — ${order.requestId}`,
-    `Language / Język: ${order.locale}`,
-    `Name / Imię: ${order.name}`,
-    `Email: ${order.email}`,
-    `Request / Zapytanie: ${order.kind === "catalog" ? t.kindCatalog : t.kindCustom}`,
+    `${t.deliveryLanguage}: ${order.locale}`,
+    `${t.deliveryName}: ${order.name}`,
+    `${t.deliveryEmail}: ${order.email}`,
+    `${t.deliveryRequest}: ${order.kind === "catalog" ? t.kindCatalog : t.kindCustom}`,
     ...(order.kind === "catalog" && order.product
       ? [
-          `Piece / Praca: ${t[order.product]}`,
-          `Version / Wersja: ${order.version === "same" ? t.versionSame : t.versionChanges}`,
+          `${t.deliveryPiece}: ${t[order.product]}`,
+          `${t.deliveryVersion}: ${order.version === "same" ? t.versionSame : t.versionChanges}`,
         ]
       : []),
-    `Preferred date / Preferowany termin: ${order.date || "—"}`,
+    `${t.deliveryDate}: ${order.date || "—"}`,
     "",
-    "Details / Szczegóły:",
+    `${t.deliveryDetails}:`,
     order.details || "—",
     "",
-    "References / Inspiracje:",
+    `${t.deliveryReferences}:`,
     order.links || "—",
     "",
-    "This is an enquiry, not a confirmed order. / To zapytanie, nie potwierdzone zamówienie.",
+    t.deliveryNotice,
   ].join("\n");
 }
 
@@ -55,7 +55,7 @@ export function createMailDelivery(
           from: `El_Inside <${config.from}>`,
           to: [config.to],
           replyTo: order.email,
-          subject: `El_Inside — ${{ pl: "nowe zapytanie", en: "new enquiry", ru: "новая заявка" }[order.locale]} (${order.requestId.slice(0, 8)})`,
+          subject: `El_Inside — ${dictionaries[order.locale].deliverySubject} (${order.requestId.slice(0, 8)})`,
           text: emailText(order),
           attachments,
         },
@@ -83,7 +83,7 @@ export function createTelegramDelivery(
           ? t[order.product]
           : t.kindCustom,
         order.details.slice(0, 350),
-        "Полная заявка / Full enquiry: enquiry.txt",
+        t.deliveryFull,
       ]
         .filter(Boolean)
         .join("\n");

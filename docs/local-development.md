@@ -35,7 +35,7 @@ test -f .env.local || cp .env.example .env.local
 npm run dev
 ```
 
-Откройте http://localhost:3000/pl/, http://localhost:3000/ru/ или http://localhost:3000/en/. После изменения `.env.local` перезапустите сервер. Если порт занят, можно запустить `npm run dev -- --port 3001` и поменять локальный `SITE_URL` на `http://localhost:3001`.
+Откройте http://localhost:3000/pl/, http://localhost:3000/be/, http://localhost:3000/ru/ или http://localhost:3000/en/. После изменения `.env.local` перезапустите сервер. Если порт занят, можно запустить `npm run dev -- --port 3001` и поменять локальный `SITE_URL` на `http://localhost:3001`.
 
 Для режима, близкого к Vercel:
 

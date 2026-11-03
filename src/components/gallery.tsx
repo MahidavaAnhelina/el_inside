@@ -3,10 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { dictionaries, type Locale } from "@/lib/i18n";
-import { products } from "@/lib/products";
+import {
+  filterProducts,
+  type Category,
+  type Subcategory,
+  type Product,
+} from "@/lib/products";
+import { ProductFilters } from "./product-filters";
+import { ProductPhoto } from "./product-photo";
 import { Icon } from "./icon";
 
-type Product = (typeof products)[number];
 function PhotoViewer({
   product,
   locale,
@@ -110,31 +116,22 @@ function PhotoViewer({
 }
 export function Gallery({ locale }: { locale: Locale }) {
   const t = dictionaries[locale];
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState<Category>("all");
+  const [subcategory, setSubcategory] = useState<Subcategory>("all");
   const [opened, setOpened] = useState<Product | null>(null);
-  const visible = products.filter(
-    (product) => filter === "all" || product.category === filter,
-  );
+  const visible = filterProducts(filter, subcategory);
   return (
     <>
       <div className="filter-row gallery-filters">
-        <div className="filters" role="group" aria-label={t.categories}>
-          {[
-            ["all", t.filterAll],
-            ["toys", t.filterToys],
-            ["clothes", t.filterClothes],
-            ["accessories", t.filterAccessories],
-          ].map(([value, label]) => (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={filter === value}
-              onClick={() => setFilter(value)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        <ProductFilters
+          t={t}
+          category={filter}
+          subcategory={subcategory}
+          onChange={(category, subcategory) => {
+            setFilter(category);
+            setSubcategory(subcategory);
+          }}
+        />
         <span className="work-count" aria-live="polite">
           {t.count} {visible.length}
         </span>
@@ -148,12 +145,10 @@ export function Gallery({ locale }: { locale: Locale }) {
               onClick={() => setOpened(product)}
               aria-label={`${t.openPhotos}: ${t[product.id]}`}
             >
-              <Image
-                unoptimized
-                src={`/assets/${product.image.replace(".webp", "-thumb.webp")}`}
+              <ProductPhoto
+                image={product.image}
                 alt={t[product.alt]}
-                width={640}
-                height={800}
+                sizes="(max-width: 540px) 100vw, (max-width: 800px) 45vw, 400px"
               />
               <span className="gallery-photo-count">
                 {product.photos.length} · {t.photoCount}
@@ -180,6 +175,11 @@ export function Gallery({ locale }: { locale: Locale }) {
           </article>
         ))}
       </div>
+      {visible.length === 0 && (
+        <p className="empty-category" role="status">
+          {t.emptyCategory}
+        </p>
+      )}
       {opened && (
         <PhotoViewer
           key={opened.id}

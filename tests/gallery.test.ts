@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { test } from "node:test";
-import { products, featuredProductIds, isProductId } from "../src/lib/products";
+import {
+  products,
+  featuredProductIds,
+  isProductId,
+  filterProducts,
+  categorySubcategories,
+} from "../src/lib/products";
 import { orderSchema } from "../src/lib/order-schema";
 import { emailText } from "../src/lib/order-delivery";
 import { dictionaries, locales } from "../src/lib/i18n";
@@ -44,4 +50,67 @@ test("the homepage is a curated subset and every gallery image has a local thumb
       );
     }
   }
+});
+
+test("subcategory requests return exactly the intended works and top categories include them", () => {
+  assert.deepEqual(
+    filterProducts("toys", "newborns")
+      .map((product) => product.id)
+      .sort(),
+    ["dummyClip", "elephant", "forestHanging", "giraffeTeether", "sea"],
+  );
+  assert.deepEqual(
+    filterProducts("clothes", "kids")
+      .map((product) => product.id)
+      .sort(),
+    [
+      "body",
+      "creamBabyCardigan",
+      "easyCardigan",
+      "gooseCardigan",
+      "pinkCardigan",
+    ],
+  );
+  assert.deepEqual(
+    filterProducts("clothes", "pets").map((product) => product.id),
+    ["greenCardigan"],
+  );
+  assert.deepEqual(filterProducts("clothes", "adults"), []);
+  assert.deepEqual(
+    filterProducts("accessories", "bags").map((product) => product.id),
+    ["pastelBag"],
+  );
+  assert.deepEqual(
+    filterProducts("accessories", "keychains")
+      .map((product) => product.id)
+      .sort(),
+    ["cherries", "cocktail", "flowerMonster"],
+  );
+  assert.deepEqual(
+    filterProducts("accessories", "wardrobe")
+      .map((product) => product.id)
+      .sort(),
+    ["lilacCardigan", "liliMittens", "melangeBaktus", "silkyMittens"],
+  );
+  for (const category of ["toys", "clothes", "accessories"] as const) {
+    for (const subcategory of categorySubcategories[category]) {
+      for (const product of filterProducts(category, subcategory))
+        assert.ok(filterProducts(category).includes(product));
+    }
+  }
+  for (const removed of [
+    "creamCardigan",
+    "reindeer",
+    "bearDress",
+    "bearSuit",
+    "patchBag",
+  ])
+    assert.equal(isProductId(removed), false);
+  assert.ok(
+    featuredProductIds.some(
+      (id) =>
+        products.find((product) => product.id === id)?.category ===
+        "accessories",
+    ),
+  );
 });

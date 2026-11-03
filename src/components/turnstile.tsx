@@ -43,7 +43,8 @@ export function Turnstile({
       id = api.render(container.current!, {
         sitekey: siteKey,
         action: "order",
-        language: locale,
+        // Turnstile does not offer Belarusian; use its browser-language fallback.
+        language: locale === "be" ? "auto" : locale,
         theme: "light",
         size,
         "response-field": false,

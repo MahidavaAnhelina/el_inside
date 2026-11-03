@@ -18,7 +18,7 @@ const production = {
 
 test("production locale canonicals and reciprocal alternates agree with the sitemap", () => {
   const sitemap = siteSitemap(production);
-  assert.equal(sitemap.length, 6);
+  assert.equal(sitemap.length, locales.length * 2);
   const titles = new Set();
   for (const locale of locales) {
     const metadata = pageMetadata(locale, production);
@@ -38,7 +38,7 @@ test("production locale canonicals and reciprocal alternates agree with the site
     assert.equal((metadata.robots as { index: boolean }).index, true);
     titles.add(metadata.title);
   }
-  assert.equal(titles.size, 3);
+  assert.equal(titles.size, locales.length);
   assert.equal(
     siteRobots(production).sitemap,
     `${production.SITE_URL}/sitemap.xml`,

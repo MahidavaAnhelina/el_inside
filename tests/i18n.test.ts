@@ -24,6 +24,6 @@ test("all languages contain all messages and product descriptions", () => {
 });
 test("locale routing accepts only supported URL prefixes", () => {
   for (const value of locales) assert.equal(isLocale(value), true);
-  for (const value of ["", "be", "PL", "contact", "../en"])
+  for (const value of ["", "de", "PL", "contact", "../en"])
     assert.equal(isLocale(value), false);
 });

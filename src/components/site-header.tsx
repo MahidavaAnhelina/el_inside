@@ -22,6 +22,7 @@ export function SiteHeader({
           <BrandName className="brand-name" />
         </a>
         <nav className="site-nav" aria-label="Menu">
+          <a href={`/${locale}/#about`}>{t.navAbout}</a>
           <a href={`/${locale}/#works`}>{t.navWorks}</a>
           <a
             href={`/${locale}/gallery/`}
@@ -29,7 +30,6 @@ export function SiteHeader({
           >
             {t.navGallery}
           </a>
-          <a href={`/${locale}/#about`}>{t.navAbout}</a>
           <a href={`/${locale}/#how`}>{t.navHow}</a>
         </nav>
         <div className="header-actions">

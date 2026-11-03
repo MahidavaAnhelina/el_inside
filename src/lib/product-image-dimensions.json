@@ -1,0 +1,578 @@
+{
+  "gallery/frog-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/frog-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/frog-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/frog-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/body-7.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/body-1.webp": {
+    "width": 2000,
+    "height": 1329,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 425
+  },
+  "gallery/body-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/body-3.webp": {
+    "width": 1489,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 860
+  },
+  "gallery/body-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/body-6.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/body-8.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/fox-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/fox-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/fox-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/patchBag-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pastelBag-1.webp": {
+    "width": 1200,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/pastelBag-2.webp": {
+    "width": 1200,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/pastelBag-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pastelBag-5.webp": {
+    "width": 1200,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/patchBag-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pinkCardigan-1.webp": {
+    "width": 1600,
+    "height": 900,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 360
+  },
+  "gallery/pinkCardigan-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pinkCardigan-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pinkCardigan-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/pinkCardigan-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-6.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-7.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-8.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-10.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-11.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-12.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-13.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestFriends-14.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cherries-6.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cherries-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cherries-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cherries-4.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cherries-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestHanging-10.webp": {
+    "width": 1500,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/forestHanging-1.webp": {
+    "width": 1600,
+    "height": 1200,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 480
+  },
+  "gallery/forestHanging-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestHanging-3.webp": {
+    "width": 1200,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/forestHanging-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestHanging-5.webp": {
+    "width": 1200,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 853
+  },
+  "gallery/sea-6.webp": {
+    "width": 2000,
+    "height": 1722,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 551
+  },
+  "gallery/sea-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/sea-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/sea-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/sea-7.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/flowerMonster-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/elephant-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/elephant-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/elephant-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/creamBabyCardigan-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/creamBabyCardigan-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/creamBabyCardigan-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cocktail-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/cocktail-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/gooseCardigan-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/gooseCardigan-2.webp": {
+    "width": 1407,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 910
+  },
+  "gallery/gooseCardigan-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/duck-7.webp": {
+    "width": 1253,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1022
+  },
+  "gallery/duck-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/duck-4.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/greenCardigan-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/greenCardigan-2.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/greenCardigan-3.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/greenCardigan-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/lilacCardigan-1.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/lilacCardigan-5.webp": {
+    "width": 900,
+    "height": 1600,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/giraffe-1.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/giraffe-9.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/giraffe-11.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/dummyClip-1.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/forestHanging-9.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/bunnyLola-1.webp": {
+    "width": 1478,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 866
+  },
+  "gallery/bunnyLola-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/bunnyLola-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/easyCardigan-1.webp": {
+    "width": 2000,
+    "height": 1747,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 559
+  },
+  "gallery/easyCardigan-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/easyCardigan-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/liliMittens-1.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/liliMittens-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/liliMittens-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/silkyMittens-1.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/silkyMittens-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/silkyMittens-3.webp": {
+    "width": 1346,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 951
+  },
+  "gallery/silkyMittens-4.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/melangeBaktus-1.webp": {
+    "width": 1442,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 888
+  },
+  "gallery/melangeBaktus-2.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/melangeBaktus-3.webp": {
+    "width": 1125,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 1138
+  },
+  "gallery/melangeBaktus-4.webp": {
+    "width": 1346,
+    "height": 2000,
+    "thumbnailWidth": 640,
+    "thumbnailHeight": 951
+  }
+}

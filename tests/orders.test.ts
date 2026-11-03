@@ -67,7 +67,7 @@ test("catalog enquiry targets only the configured owner and sets customer reply-
   });
   assert.deepEqual(calls[0].message.to, [config.to]);
   assert.equal(calls[0].message.replyTo, base.email);
-  assert.match(calls[0].message.text ?? "", /Żabka podróżniczka/);
+  assert.match(calls[0].message.text ?? "", /Praca: Żabka/);
   assert.equal(calls[0].message.html, undefined);
 });
 
@@ -113,7 +113,7 @@ for (const [name, values] of Object.entries({
   "email header injection": {
     email: "customer@example.com\r\nBcc:another@example.com",
   },
-  "unknown locale": { locale: "be" },
+  "unknown locale": { locale: "de" },
   "unsafe reference link": { links: "javascript:alert(1)" },
   "oversized text": { details: "a".repeat(3001) },
   "past date": { date: "2020-01-01" },
@@ -238,8 +238,8 @@ test("Russian enquiries retain the locale, translated piece and customer details
   );
   assert.equal(response.status, 200);
   assert.match(calls[0].message.subject ?? "", /новая заявка/);
-  assert.match(calls[0].message.text ?? "", /Language \/ Język: ru/);
-  assert.match(calls[0].message.text ?? "", /Лягушка-путешественница/);
+  assert.match(calls[0].message.text ?? "", /Язык: ru/);
+  assert.match(calls[0].message.text ?? "", /Жабка/);
   assert.match(calls[0].message.text ?? "", /Зелёная лягушка/);
 });
 
@@ -291,4 +291,22 @@ test("unreadable attachments point to the upload field", async () => {
     error: "invalid",
     fields: { files: "invalid" },
   });
+});
+
+test("Belarusian enquiries use localized delivery labels, subject and current catalogue name", async () => {
+  const { send, calls } = sender();
+  const response = await handleOrder(
+    request({
+      locale: "be",
+      product: "giraffeTeether",
+      details: "Жоўты колер",
+    }),
+    config,
+    send,
+  );
+  assert.equal(response.status, 200);
+  assert.match(calls[0].message.subject ?? "", /новая заяўка/);
+  assert.match(calls[0].message.text ?? "", /Мова: be/);
+  assert.match(calls[0].message.text ?? "", /Выраб: Грызунок «Жырафік»/);
+  assert.match(calls[0].message.text ?? "", /Жоўты колер/);
 });

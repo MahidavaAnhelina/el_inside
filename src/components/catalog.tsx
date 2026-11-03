@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
+import { ProductPhoto } from "./product-photo";
 import { useState } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
-import { products, featuredProductIds } from "@/lib/products";
+import { products, featuredProductIds, type Category } from "@/lib/products";
 import { useWorkshop } from "./workshop-provider";
 import { Icon } from "./icon";
 export function Catalog({ t, locale }: { t: Dictionary; locale: Locale }) {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState<Category>("all");
   const { select } = useWorkshop();
   const visible = products.filter(
     (product) =>
@@ -37,6 +37,7 @@ export function Catalog({ t, locale }: { t: Dictionary; locale: Locale }) {
               ["all", t.filterAll],
               ["toys", t.filterToys],
               ["clothes", t.filterClothes],
+              ["accessories", t.filterAccessories],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -61,13 +62,10 @@ export function Catalog({ t, locale }: { t: Dictionary; locale: Locale }) {
               className="product-image"
               onClick={() => select({ kind: "catalog", product: product.id })}
             >
-              <Image
-                unoptimized
-                src={`/assets/${product.image.replace(".webp", "-thumb.webp")}`}
+              <ProductPhoto
+                image={product.image}
                 alt={t[product.alt]}
-                width={474}
-                height={842}
-                sizes="(max-width: 800px) 45vw, 300px"
+                sizes="(max-width: 540px) 100vw, (max-width: 800px) 45vw, 300px"
               />
               <span className="image-action">
                 <span>{t.askSimilar}</span>
@@ -75,7 +73,11 @@ export function Catalog({ t, locale }: { t: Dictionary; locale: Locale }) {
               </span>
             </a>
             <div className="product-meta">
-              <span>{t[product.technique]}</span>
+              <span>
+                {product.technique === "crochet"
+                  ? t.galleryCrochet
+                  : t.galleryKnitting}
+              </span>
             </div>
             <h3>{t[product.id]}</h3>
             <p>{t[product.description]}</p>

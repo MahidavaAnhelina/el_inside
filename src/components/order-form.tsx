@@ -1,5 +1,6 @@
 "use client";
-import Image from "next/image";
+import { ProductPhoto } from "./product-photo";
+import { ProductChooser } from "./product-chooser";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 import type { Dictionary, Locale } from "@/lib/i18n";
@@ -37,6 +38,8 @@ function AttachmentPreview({ file }: { file: File }) {
 
 export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
   const { selection, select } = useWorkshop();
+  const [choosing, setChoosing] = useState(false);
+  const chooseButton = useRef<HTMLButtonElement>(null);
   const [version, setVersion] = useState("same");
   const [files, setFiles] = useState<File[]>([]);
   const [fileError, setFileError] = useState(false);
@@ -225,6 +228,25 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
   }
   return (
     <div className="form-shell">
+      {choosing && (
+        <ProductChooser
+          t={t}
+          selected={selection.product}
+          onSelect={(product) => {
+            select({ kind: "catalog", product });
+            requestId.current = "";
+            setError("");
+            setFieldErrors((previous) => ({ ...previous, product: undefined }));
+          }}
+          onClose={() => {
+            setChoosing(false);
+            requestAnimationFrame(() =>
+              chooseButton.current?.focus({ preventScroll: true }),
+            );
+          }}
+        />
+      )}
+
       <form
         ref={form}
         noValidate
@@ -328,15 +350,17 @@ export function OrderForm({ t, locale }: { t: Dictionary; locale: Locale }) {
                 </select>
                 {fieldError("product")}
               </label>
+              <button
+                ref={chooseButton}
+                className="button photo-choose-button"
+                type="button"
+                onClick={() => setChoosing(true)}
+              >
+                {t.chooseByPhoto}
+              </button>
               {selected && (
                 <div className="selected-product">
-                  <Image
-                    unoptimized
-                    src={`/assets/${selected.image.replace(".webp", "-thumb.webp")}`}
-                    alt=""
-                    width={48}
-                    height={60}
-                  />
+                  <ProductPhoto image={selected.image} alt="" sizes="48px" />
                   <div>
                     <strong>{t[selected.id]}</strong>
                     <small>{t.selectedHint}</small>
