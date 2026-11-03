@@ -89,9 +89,11 @@ export function Home({ locale }: { locale: Locale }) {
               <BrandText>{t.aboutTitle}</BrandText>
             </h2>
             <p className="about-lead">{t.aboutLead}</p>
-            <p>
-              <BrandText>{t.aboutText}</BrandText>
-            </p>
+            {t.aboutText.split("\n\n").map((paragraph) => (
+              <p key={paragraph}>
+                <BrandText>{paragraph}</BrandText>
+              </p>
+            ))}
             <p>{t.aboutStatus}</p>
             <BrandName className="signature" />
           </div>
