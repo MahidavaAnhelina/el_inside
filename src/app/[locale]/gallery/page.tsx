@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { dictionaries, isLocale, locales } from "@/lib/i18n";
-import { pageMetadata } from "@/lib/seo";
+import {
+  galleryStructuredData,
+  pageMetadata,
+  serializeJsonLd,
+} from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { IconDefs } from "@/components/icon-defs";
@@ -30,6 +34,12 @@ export default async function GalleryPage({
   const t = dictionaries[locale];
   return (
     <WorkshopProvider>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(galleryStructuredData(locale)),
+        }}
+      />
       <a href="#main" className="skip">
         {t.skip}
       </a>

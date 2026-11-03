@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { locales } from "../src/lib/i18n";
+import { dictionaries, locales } from "../src/lib/i18n";
+import { products } from "../src/lib/products";
+import { existsSync } from "node:fs";
 import { isIndexableSite, siteUrl } from "../src/lib/site";
 import {
   languageUrls,
@@ -9,12 +11,44 @@ import {
   siteSitemap,
   siteStructuredData,
   serializeJsonLd,
+  galleryStructuredData,
 } from "../src/lib/seo";
 
 const production = {
   SITE_URL: "https://el-inside.vercel.app",
   VERCEL_ENV: "production",
 };
+
+test("gallery schema describes the localized collection and its real catalogue images", () => {
+  for (const locale of locales) {
+    const schema = galleryStructuredData(locale, production);
+    const pageUrl = pageMetadata(locale, production, "gallery/").alternates
+      ?.canonical;
+    assert.equal(schema["@type"], "CollectionPage");
+    assert.equal(schema.url, pageUrl);
+    assert.equal(schema.inLanguage, locale);
+    assert.equal(schema.name, dictionaries[locale].galleryPageTitle);
+    assert.equal(schema.mainEntity["@type"], "ItemList");
+    assert.equal(schema.mainEntity.numberOfItems, products.length);
+    assert.equal(schema.mainEntity.itemListElement.length, products.length);
+    const urls = new Set<string>();
+    schema.mainEntity.itemListElement.forEach((entry, index) => {
+      const product = products[index];
+      assert.equal(entry.position, index + 1);
+      assert.equal(entry.item.name, dictionaries[locale][product.id]);
+      assert.equal(entry.item.url, `${pageUrl}#work-${product.id}`);
+      assert.equal(entry.item["@id"], entry.item.url);
+      assert.equal(new URL(entry.item.image).origin, production.SITE_URL);
+      assert.ok(existsSync(`public${new URL(entry.item.image).pathname}`));
+      urls.add(entry.item.url);
+    });
+    assert.equal(urls.size, products.length);
+    const serialized = serializeJsonLd(schema);
+    assert.deepEqual(JSON.parse(serialized), schema);
+    assert.ok(!serialized.includes('"offers"'));
+    assert.ok(!serialized.includes('"aggregateRating"'));
+  }
+});
 
 test("production locale canonicals and reciprocal alternates agree with the sitemap", () => {
   const sitemap = siteSitemap(production);

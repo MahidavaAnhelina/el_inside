@@ -1,6 +1,7 @@
 import type { Metadata, MetadataRoute } from "next";
 import { dictionaries, locales, openGraphLocales, type Locale } from "./i18n";
 import { isIndexableSite, siteUrl, type SiteEnvironment } from "./site";
+import { products } from "./products";
 
 type SeoEnvironment = SiteEnvironment & { GOOGLE_SITE_VERIFICATION?: string };
 
@@ -144,6 +145,44 @@ export function siteStructuredData(
         },
       },
     ],
+  };
+}
+
+export function galleryStructuredData(
+  locale: Locale,
+  env: SiteEnvironment = process.env,
+) {
+  const base = siteUrl(env);
+  const t = dictionaries[locale];
+  const pageUrl = new URL(`/${locale}/gallery/`, base).href;
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: t.galleryPageTitle,
+    description: t.galleryPageDescription,
+    inLanguage: locale,
+    isPartOf: { "@id": new URL("/#website", base).href },
+    about: { "@id": new URL("/#studio", base).href },
+    mainEntity: {
+      "@type": "ItemList",
+      "@id": `${pageUrl}#works`,
+      name: t.galleryTitle,
+      numberOfItems: products.length,
+      itemListOrder: "https://schema.org/ItemListUnordered",
+      itemListElement: products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Thing",
+          "@id": `${pageUrl}#work-${product.id}`,
+          url: `${pageUrl}#work-${product.id}`,
+          name: t[product.id],
+          image: new URL(`/assets/${product.image}`, base).href,
+        },
+      })),
+    },
   };
 }
 

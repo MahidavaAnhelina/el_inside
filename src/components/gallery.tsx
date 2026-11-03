@@ -138,7 +138,11 @@ export function Gallery({ locale }: { locale: Locale }) {
       </div>
       <div className="full-gallery-grid">
         {visible.map((product) => (
-          <article className="gallery-card" key={product.id}>
+          <article
+            className="gallery-card"
+            id={`work-${product.id}`}
+            key={product.id}
+          >
             <button
               type="button"
               className="gallery-cover"
