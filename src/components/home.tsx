@@ -75,13 +75,10 @@ export function Home({ locale }: { locale: Locale }) {
           aria-labelledby="about-title"
         >
           <div className="about-photo">
-            <Image
+            <ProductPhoto
               sizes="(max-width: 540px) 100vw, 550px"
-              src="/assets/clothes.jpg"
-              alt={t.detailAlt}
-              width={736}
-              height={1308}
-              loading="lazy"
+              image="gallery/forestFriends-2.webp"
+              alt={t.forestFriendsAlt}
             />
           </div>
           <div className="about-copy">
